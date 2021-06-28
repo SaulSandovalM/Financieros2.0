@@ -7,13 +7,6 @@ import logo from '../../imgs/logoh.png'
 import './Login.css'
 
 export default class Login extends Component {
-  constructor () {
-    super()
-    this.state = {
-
-    }
-  }
-
   render () {
     return (
       <div className='login-container'>
