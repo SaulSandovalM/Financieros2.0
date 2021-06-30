@@ -1,9 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // Redux
 // import { Provider } from 'react-redux'
 // Importaciones
-import { Login } from './components/comun/login/Login'
+import Login from './components/comun/login/Login'
 import TutorialsList from './components/Tutorial-list'
 // Material ui
 import { makeStyles } from '@material-ui/core/styles'
@@ -17,10 +17,28 @@ import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import { AccessAlarm,  } from '@material-ui/icons'
+import {
+  AccountBalance,
+  MonetizationOn,
+  FileCopy, Today,
+  AccountBalanceWallet,
+  Receipt,
+  Print,
+  Inbox,
+  Note,
+  ListAlt,
+  Folder,
+  PlaylistAddCheck,
+  FormatListNumbered,
+  AssignmentTurnedIn,
+  PlaylistAdd
+} from '@material-ui/icons'
+// tocken
+import useToken from './useToken'
 
 const drawerWidth = 240
 
+// Estilos
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
@@ -46,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Routes () {
   const classes = useStyles()
+  const { token, setToken } = useToken()
+
+  if (!token) {
+    return <Login setToken={setToken} />
+  }
 
   return (
     <div className={classes.root}>
@@ -67,25 +90,92 @@ export default function Routes () {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['Presupuesto', 'Fondo Revolvente', 'Archivos', 'Registro', 'Disponible', 'Contrarecibo'].map((text, index) => (
-              <ListItem button key={index}>
-                <ListItemIcon>{index % 6 === 0 ? <AccessAlarm /> : ''}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <ListItem button>
+              <ListItemIcon><AccountBalance /></ListItemIcon>
+              <ListItemText primary='Presupuesto' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><MonetizationOn /></ListItemIcon>
+              <ListItemText primary='Revolvente' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><FileCopy /></ListItemIcon>
+              <ListItemText primary='Archivos' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><Today /></ListItemIcon>
+              <ListItemText primary='Registro' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+              <ListItemText primary='Disponible' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><PlaylistAdd /></ListItemIcon>
+              <ListItemText primary='Contrarecibo' />
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon><Inbox /></ListItemIcon>
+              <ListItemText primary='Caja' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><Print /></ListItemIcon>
+              <ListItemText primary='Arqueo' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><Receipt /></ListItemIcon>
+              <ListItemText primary='Cheques' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><PlaylistAdd /></ListItemIcon>
+              <ListItemText primary='Contrarecibo' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><Note /></ListItemIcon>
+              <ListItemText primary='Vale' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><ListAlt /></ListItemIcon>
+              <ListItemText primary='Vales' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><Receipt /></ListItemIcon>
+              <ListItemText primary='Caratula' />
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon><Folder /></ListItemIcon>
+              <ListItemText primary='Fondos' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><PlaylistAddCheck /></ListItemIcon>
+              <ListItemText primary='Contrarecibo' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><FormatListNumbered /></ListItemIcon>
+              <ListItemText primary='Tabular' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
+              <ListItemText primary='Pasa' />
+            </ListItem>
           </List>
           <Divider />
         </div>
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
-        {/* <Router>
+        <Router>
           <Switch>
-            <Redirect exact from='/' to='/Login' />
-            <Route exact path='/Login' component={Login} />
+            <Route exact path='/' component={TutorialsList} />
             <Route exact path='/Prueba' component={TutorialsList} />
           </Switch>
-        </Router> */}
+        </Router>
       </main>
     </div>
   )
