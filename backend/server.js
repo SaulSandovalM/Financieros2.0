@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 })
 
 require('./app/routes/tutorial.routes')(app)
+require('./app/routes/usuario.routes')(app)
 
 // establecemos nuestro puerto
 const PORT = process.env.PORT || 8080
