@@ -1,15 +1,8 @@
 const db = require('../models')
 const Usuario = db.usuarios
+const Op = db.Sequelize.Op
 
 exports.create = (req, res) => {
-  // Validando
-  if (!req.body.nombre) {
-    res.status(400).send({
-      message: 'Content can not be empty!'
-    })
-    return
-  }
-
   // Creacion
   const usuario = {
     nombre: req.body.nombre,
@@ -27,4 +20,17 @@ exports.create = (req, res) => {
           err.message || 'Some error occurred while creating the Usuario.'
       })
     })
+}
+
+exports.findAll = (req, res) => {
+  const nombre = req.query.nombre
+  var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null
+
+  Usuario.findAll({ where: condition }).then(data => {
+    res.send(data)
+  }).catch(err => {
+    res.status(500).send({
+      message: err.message || 'Some error'
+    })
+  })
 }

@@ -12,8 +12,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 // importaciones necesarias
-import PropTypes from 'prop-types'
-
+import UsuariosDataService from '../../../services/Usuarios'
 // Estilos
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,6 +44,22 @@ export default function Login ({ setToken }) {
   const [usernameReg, setUsernameReg] = useState('')
   const [passwordReg, setPasswordReg] = useState('')
 
+  const createUsuario = () => {
+    var data = {
+      nombre: usernameReg,
+      contraseña: passwordReg
+    }
+    UsuariosDataService.create(data).then(response => {
+      this.useState({
+        nombre: response.data.nombre,
+        contraseña: response.data.contraseña
+      })
+      console.log(response.data)
+    }).catch(e => {
+      console.log(e)
+    })
+  }
+
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
@@ -61,9 +76,9 @@ export default function Login ({ setToken }) {
             margin='normal'
             required
             fullWidth
-            id='email'
+            id='ususario'
             label='Usuario'
-            name='email'
+            name='ususario'
             autoFocus
             onChange={(e) => { setUsernameReg(e.target.value) }}
           />
@@ -85,6 +100,7 @@ export default function Login ({ setToken }) {
             variant='contained'
             color='primary'
             className={classes.submit}
+            onClick={createUsuario}
           >
             Entrar
           </Button>
@@ -109,7 +125,4 @@ export default function Login ({ setToken }) {
       </Box>
     </Container>
   )
-}
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
 }

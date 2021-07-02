@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize) => {
     nombre: {
       type: Sequelize.STRING
     },
-    constraseña: {
+    contraseña: {
       type: Sequelize.STRING
     }
   })
