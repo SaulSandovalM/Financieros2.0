@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // Redux
 // import { Provider } from 'react-redux'
-// Importaciones
+// Componentes
 import Login from './components/comun/login/Login'
 import TutorialsList from './components/Tutorial-list'
+import AddTutorial from './components/Add-tutorial'
 // Material ui
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -34,7 +35,9 @@ import {
   PlaylistAdd
 } from '@material-ui/icons'
 // tocken
-import useToken from './useToken'
+// import useToken from './useToken'
+// service
+import Auth from '../../../services/Auth'
 
 const drawerWidth = 240
 
@@ -64,11 +67,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Routes () {
   const classes = useStyles()
-  const { token, setToken } = useToken()
 
-  if (!token) {
-    return <Login setToken={setToken} />
-  }
+  const [showModeratorBoard, setShowModeratorBoard] = useState('')
+  const [showAdminBoard, setAdminBoard] = useState('')
+  const [currentUser, setCurrentUser] = useState('')
+
+  // const { token, setToken } = useToken()
+
+  // if (!token) {
+  //   return <Login setToken={setToken} />
+  // }
 
   return (
     <div className={classes.root}>
@@ -173,7 +181,8 @@ export default function Routes () {
         <Router>
           <Switch>
             <Route exact path='/' component={TutorialsList} />
-            <Route exact path='/Prueba' component={TutorialsList} />
+            <Route exact path='/add' component={AddTutorial} />
+            <Route exact path='/login' component={Login} />
           </Switch>
         </Router>
       </main>

@@ -41,19 +41,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login ({ setToken }) {
   const classes = useStyles()
-  const [usernameReg, setUsernameReg] = useState('')
-  const [passwordReg, setPasswordReg] = useState('')
+  // const [usernameReg, setUsernameReg] = useState('')
+  // const [passwordReg, setPasswordReg] = useState('')
 
-  const createUsuario = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  // const createUsuario = () => {
+  //   var data = {
+  //     nombre: usernameReg,
+  //     contraseña: passwordReg
+  //   }
+  //   UsuariosDataService.create(data).then(response => {
+  //     this.useState({
+  //       nombre: response.data.nombre,
+  //       contraseña: response.data.contraseña
+  //     })
+  //     console.log(response.data)
+  //   }).catch(e => {
+  //     console.log(e)
+  //   })
+  // }
+
+  const loginUsuario = () => {
     var data = {
-      nombre: usernameReg,
-      contraseña: passwordReg
+      nombre: username,
+      contraseña: password
     }
-    UsuariosDataService.create(data).then(response => {
-      this.useState({
-        nombre: response.data.nombre,
-        contraseña: response.data.contraseña
-      })
+    UsuariosDataService.getAll(data).then(response => {
       console.log(response.data)
     }).catch(e => {
       console.log(e)
@@ -80,7 +95,7 @@ export default function Login ({ setToken }) {
             label='Usuario'
             name='ususario'
             autoFocus
-            onChange={(e) => { setUsernameReg(e.target.value) }}
+            onChange={(e) => { setUsername(e.target.value) }}
           />
           <TextField
             variant='outlined'
@@ -92,15 +107,14 @@ export default function Login ({ setToken }) {
             type='password'
             id='password'
             autoComplete='current-password'
-            onChange={(e) => { setPasswordReg(e.target.value) }}
+            onChange={(e) => { setPassword(e.target.value) }}
           />
           <Button
-            type='submit'
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
-            onClick={createUsuario}
+            onClick={loginUsuario}
           >
             Entrar
           </Button>
