@@ -54,21 +54,33 @@ git clone https://github.com/SaulSandovalM/React_MySQL_Node
 
 2. Instalar dependencias dentro del proyecto.
 
+Para esto entraremos a las carpetas frontend y backend y ejecutaremos el siguiente comando desde la terminal.
+
 ```
 npm install
 ```
 
-3. Levantando el proyecto.
+3. Levantando el Front-End.
+
+Entraremos a la carpeta de frontend y ejecutamos:
 
 ```
 npm start
 ```
 
-**Nota:** _Recuerda que para realizar el pado 2 y 3 los tendremos que hacer desde adentro de la carpeta del proyecto_
+4. Levantando el Back-End.
+
+Tambien necesitaremos levantar el backend, para esto ejecutamos dentro de la carpeta de backend lo siguiente:
+
+```
+node server.js
+```
+
+**Nota:** _El backend crea la base de datos en MySQL pero antes deberas configurar el archivo db.config.js que se encuentra dentro de la carpta del backend/config. Ahi cambiaras los valores por los tuyos._
 
 ### Deploy
 
-Para hacer el compilado escribiremos esto:
+Para compilar el Front-end escribiremos esto:
 
 ```
 npm run build
@@ -76,7 +88,7 @@ npm run build
 
 Esto creara una carpeta llamada **build** con todo nuestro codigo listo para producción.
 
-_Recuerda que esto debes hacerlo dentro de la carpeta principal_
+_Recuerda que esto debes hacerlo dentro de la carpeta frontend_
 
 ### Autores
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // Redux
 // import { Provider } from 'react-redux'
@@ -37,7 +37,7 @@ import {
 // tocken
 // import useToken from './useToken'
 // service
-import Auth from '../../../services/Auth'
+// import AuthService from './services/Auth'
 
 const drawerWidth = 240
 
@@ -68,9 +68,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Routes () {
   const classes = useStyles()
 
-  const [showModeratorBoard, setShowModeratorBoard] = useState('')
-  const [showAdminBoard, setAdminBoard] = useState('')
-  const [currentUser, setCurrentUser] = useState('')
+  // const [showModeratorBoard, setShowModeratorBoard] = useState('')
+  // const [showAdminBoard, setAdminBoard] = useState('')
+  // const [currentUser, setCurrentUser] = useState('')
 
   // const { token, setToken } = useToken()
 
