@@ -1,4 +1,10 @@
 import React, { useState } from 'react'
+// Importaciones validador
+import Form from 'react-validation/build/form'
+// import Input from 'react-validation/build/input'
+import CheckButton from 'react-validation/build/button'
+// service
+import AuthService from '../../services/Auth'
 // Material Ui
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -11,8 +17,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-// importaciones necesarias
-import UsuariosDataService from '../../../services/Usuarios'
 // Estilos
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,40 +43,48 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function Login ({ setToken }) {
-  const classes = useStyles()
-  // const [usernameReg, setUsernameReg] = useState('')
-  // const [passwordReg, setPasswordReg] = useState('')
+const required = value => {
+  if (!value) {
+    return (
+      <div>
+        Este campo es requerido!
+      </div>
+    )
+  }
+}
 
+export default function Login (props) {
+  const classes = useStyles()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
 
-  // const createUsuario = () => {
-  //   var data = {
-  //     nombre: usernameReg,
-  //     contraseña: passwordReg
-  //   }
-  //   UsuariosDataService.create(data).then(response => {
-  //     this.useState({
-  //       nombre: response.data.nombre,
-  //       contraseña: response.data.contraseña
-  //     })
-  //     console.log(response.data)
-  //   }).catch(e => {
-  //     console.log(e)
-  //   })
-  // }
+  const onChangeUsername = (e) => {
+    setUsername(e.target.value)
+  }
 
-  const loginUsuario = () => {
-    var data = {
-      nombre: username,
-      contraseña: password
+  const onChangePassword = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    setMessage('')
+    setLoading(true)
+    this.form.validateAll()
+    if (this.checkBtn.context._errors.length === 0) {
+      AuthService.login(username, password).then(() => {
+        this.props.history.push('/profile')
+        window.location.reload()
+      }, error => {
+        const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        setLoading(false)
+        setMessage(resMessage)
+      })
+    } else {
+      setLoading(false)
     }
-    UsuariosDataService.getAll(data).then(response => {
-      console.log(response.data)
-    }).catch(e => {
-      console.log(e)
-    })
   }
 
   return (
@@ -85,39 +97,52 @@ export default function Login ({ setToken }) {
         <Typography component='h1' variant='h5'>
           Iniciar Sesión
         </Typography>
-        <form className={classes.form} noValidate>
+        <Form className={classes.form} noValidate onSubmit={handleLogin}>
           <TextField
             variant='outlined'
             margin='normal'
-            required
             fullWidth
-            id='ususario'
             label='Usuario'
-            name='ususario'
+            id='username'
+            name='username'
+            value={username}
             autoFocus
-            onChange={(e) => { setUsername(e.target.value) }}
+            onChange={onChangeUsername}
+            validations={[required]}
           />
           <TextField
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             name='password'
             label='Contraseña'
             type='password'
             id='password'
             autoComplete='current-password'
-            onChange={(e) => { setPassword(e.target.value) }}
+            value={password}
+            onChange={onChangePassword}
+            validations={[required]}
           />
           <Button
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
-            onClick={loginUsuario}
+            disabled={loading}
           >
+            {
+              loading &&
+                <span />
+            }
             Entrar
           </Button>
+          {
+            message &&
+              <div>
+                {message}
+              </div>
+          }
+          <CheckButton style={{ display: 'none' }} />
           <Grid container>
             <Grid item xs>
               <Link href='#' variant='body2'>
@@ -130,7 +155,7 @@ export default function Login ({ setToken }) {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </Form>
       </div>
       <Box mt={8}>
         <Typography variant='body2' color='textSecondary' align='center'>
