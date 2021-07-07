@@ -2,6 +2,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+
 const app = express()
 
 var corsOptions = {
@@ -10,25 +11,30 @@ var corsOptions = {
 
 app.use(cors(corsOptions))
 
+// parse requests of content-type - application/json
 app.use(bodyParser.json())
 
+// parse requests of content-typw - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// database
 const db = require('./app/models')
+const Role = db.role
 
 // Para desarrollo
 db.sequelize.sync({ force: true }).then(() => {
-  console.log('Drop and re-sync db.')
+  console.log('Drop and re-sync Database with { force: true }')
+  initial()
 })
-
 // db.sequelize.sync()
 
 app.get('/', (req, res) => {
   res.json({ message: 'Funciona' })
 })
 
+// routes
 require('./app/routes/tutorial.routes')(app)
-require('./app/routes/usuario.routes')(app)
+require('./app/routes/user.routes')(app)
 
 // establecemos nuestro puerto
 const PORT = process.env.PORT || 8080
@@ -37,3 +43,20 @@ const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}.`)
 })
+
+function initial () {
+  Role.create({
+    id: 1,
+    name: 'user'
+  })
+
+  Role.create({
+    id: 2,
+    name: 'moderator'
+  })
+
+  Role.create({
+    id: 3,
+    name: 'admin'
+  })
+}
