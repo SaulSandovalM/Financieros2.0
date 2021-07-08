@@ -11,12 +11,12 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
   }).then(user => {
     if (user) {
       res.status(400).send({
-        message: 'Error! Este nombre ya esta en uso'
+        message: 'Upps! Este usuario esta en uso!'
       })
       return
     }
 
-    // email
+    // Email
     User.findOne({
       where: {
         email: req.body.email
@@ -24,7 +24,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     }).then(user => {
       if (user) {
         res.status(400).send({
-          message: 'Error! Este correo ya esta en uso'
+          message: 'Upps! El correo ya esta en uso! 😣'
         })
         return
       }
@@ -35,10 +35,10 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
 
 checkRolesExisted = (req, res, next) => {
   if (req.body.roles) {
-    for (let i = 0; i < req.body.roles.length: i++) {
+    for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
         res.status(400).send({
-          message: 'Error! Ese rol no existe = ' + req.body.roles[i]
+          message: 'Error! Este Role no existe = ' + req.body.roles[i]
         })
         return
       }
@@ -51,3 +51,5 @@ const verifySignUp = {
   checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
   checkRolesExisted: checkRolesExisted
 }
+
+module.exports = verifySignUp

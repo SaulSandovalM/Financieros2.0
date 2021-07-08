@@ -71,17 +71,14 @@ export default function Register (props) {
     e.preventDefault()
     setMessage('')
     setSuccessful(false)
-    this.form.validateAll()
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(username, email, password).then(response => {
-        setMessage(response.data.message)
-        setSuccessful(true)
-      }, error => {
-        const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
-        setSuccessful(false)
-        setMessage(resMessage)
-      })
-    }
+    AuthService.register(username, email, password).then(response => {
+      setMessage(response.data.message)
+      setSuccessful(true)
+    }, error => {
+      const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+      setSuccessful(false)
+      setMessage(resMessage)
+    })
   }
 
   return (
