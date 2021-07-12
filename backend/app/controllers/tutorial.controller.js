@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     return
   }
 
-  // Creacion
+  // Creación
   const tutorial = {
     title: req.body.title,
     description: req.body.description,

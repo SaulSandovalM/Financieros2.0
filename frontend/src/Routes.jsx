@@ -81,7 +81,7 @@ export default function Routes (props) {
   useEffect(() => {
     const user = AuthService.getCurrentUser()
     if (user) {
-      setShowModeratorBoard(user.roles.include('ROLE_MODERATOR'))
+      setShowModeratorBoard(user.roles.includes('ROLE_MODERATOR'))
       setAdminBoard(user.roles.includes('ROLE_ADMIN'))
       setCurrentUser(AuthService.getCurrentUser())
     }
@@ -194,7 +194,7 @@ export default function Routes (props) {
                   <Link to='/mod'>
                     <ListItem button>
                       <ListItemIcon><FileCopy /></ListItemIcon>
-                      <ListItemText primary='Archivos' />
+                      <ListItemText primary='Mod' />
                     </ListItem>
                   </Link>
               }
@@ -203,7 +203,7 @@ export default function Routes (props) {
                   <Link to='/admin'>
                     <ListItem button>
                       <ListItemIcon><Today /></ListItemIcon>
-                      <ListItemText primary='Registro' />
+                      <ListItemText primary='Admin' />
                     </ListItem>
                   </Link>
               }
@@ -212,39 +212,25 @@ export default function Routes (props) {
                   <Link to='/user'>
                     <ListItem button>
                       <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-                      <ListItemText primary='Disponible' />
+                      <ListItemText primary='User' />
                     </ListItem>
                   </Link>
               }
               {
-                currentUser
-                  ? <div>
+                currentUser &&
+                  <div>
                     <Link to='/profile'>
                       <ListItem button>
-                        <ListItemIcon><PlaylistAdd />{currentUser.username}</ListItemIcon>
-                        <ListItemText primary='Contrarecibo' />
+                        <ListItemIcon><PlaylistAdd /></ListItemIcon>
+                        <ListItemText primary={currentUser.username} />
                       </ListItem>
                     </Link>
-                    <a href='/profile' onClick={logOut}>
+                    <a href='/login' onClick={logOut}>
                       <ListItem button>
                         <ListItemIcon><PlaylistAdd /></ListItemIcon>
                         <ListItemText primary='Salir' />
                       </ListItem>
                     </a>
-                  </div>
-                  : <div>
-                    <Link to='/login'>
-                      <ListItem button>
-                        <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                        <ListItemText primary='login' />
-                      </ListItem>
-                    </Link>
-                    <Link to='/register'>
-                      <ListItem button>
-                        <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                        <ListItemText primary='registro' />
-                      </ListItem>
-                    </Link>
                   </div>
               }
             </List>
@@ -253,9 +239,9 @@ export default function Routes (props) {
         <main className={classes.content}>
           <Toolbar />
           <Switch>
-            <Route exact path={['/', '/home']} component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
+            <Route exact path={['/', '/home']} component={Home} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/user' component={BoardUser} />
             <Route exact path='/mod' component={BoardModerador} />

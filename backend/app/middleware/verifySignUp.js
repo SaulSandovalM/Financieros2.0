@@ -3,7 +3,7 @@ const ROLES = db.ROLES
 const User = db.user
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
-  // Username
+  // Nombre de usuario
   User.findOne({
     where: {
       username: req.body.username
@@ -24,7 +24,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     }).then(user => {
       if (user) {
         res.status(400).send({
-          message: 'Upps! El correo ya esta en uso! 😣'
+          message: 'Upps! El correo ya esta en uso!'
         })
         return
       }
