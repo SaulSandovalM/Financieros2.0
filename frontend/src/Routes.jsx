@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import ProtectedRoute from './ProtectedRoute'
 // Material ui
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Routes (props) {
   const classes = useStyles()
-
+  const { isAuthenticated, isVerifying } = props
   const [showModeratorBoard, setShowModeratorBoard] = useState(false)
   const [showAdminBoard, setAdminBoard] = useState(false)
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -241,11 +242,41 @@ export default function Routes (props) {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path={['/', '/home']} component={Home} />
-            <Route exact path='/profile' component={Profile} />
-            <Route exact path='/user' component={BoardUser} />
-            <Route exact path='/mod' component={BoardModerador} />
-            <Route exact path='/admin' component={BoardAdmin} />
+            <ProtectedRoute
+              exact
+              path='/'
+              component={Home}
+              isAuthenticated={isAuthenticated}
+              isVerifying={isVerifying}
+            />
+            <ProtectedRoute
+              exact
+              path='/profile'
+              component={Profile}
+              isAuthenticated={isAuthenticated}
+              isVerifying={isVerifying}
+            />
+            <ProtectedRoute
+              exact
+              path='/user'
+              component={BoardUser}
+              isAuthenticated={isAuthenticated}
+              isVerifying={isVerifying}
+            />
+            <ProtectedRoute
+              exact
+              path='/mod'
+              component={BoardModerador}
+              isAuthenticated={isAuthenticated}
+              isVerifying={isVerifying}
+            />
+            <ProtectedRoute
+              exact
+              path='/admin'
+              component={BoardAdmin}
+              isAuthenticated={isAuthenticated}
+              isVerifying={isVerifying}
+            />
           </Switch>
         </main>
       </div>
