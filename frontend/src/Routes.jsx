@@ -39,8 +39,7 @@ import {
 // Login
 import Login from './components/comun/Login'
 import Register from './components/comun/Register'
-import Home from './components/comun/Home'
-import Profile from './components/comun/Profile'
+import Dashboard from './components/comun/Dashboard'
 import BoardUser from './components/comun/BoardUser'
 import BoardModerador from './components/comun/BoardModerador'
 import BoardAdmin from './components/comun/BoardAdmin'
@@ -119,7 +118,7 @@ export default function Routes (props) {
   const [currentUser, setCurrentUser] = useState(undefined)
 
   const handleDrawerOpen = () => {
-    if (currentUser) {
+    if (currentUser || showAdminBoard || showModeratorBoard) {
       setOpen(true)
     }
   }
@@ -181,83 +180,89 @@ export default function Routes (props) {
             </IconButton>
           </div>
           <Divider />
-          <List>
-            <ListItem button>
-              <ListItemIcon><AccountBalance /></ListItemIcon>
-              <ListItemText primary='Presupuesto' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><MonetizationOn /></ListItemIcon>
-              <ListItemText primary='Revolvente' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><FileCopy /></ListItemIcon>
-              <ListItemText primary='Archivos' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Today /></ListItemIcon>
-              <ListItemText primary='Registro' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-              <ListItemText primary='Disponible' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><PlaylistAdd /></ListItemIcon>
-              <ListItemText primary='Contrarecibo' />
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem button>
-              <ListItemIcon><Inbox /></ListItemIcon>
-              <ListItemText primary='Caja' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Print /></ListItemIcon>
-              <ListItemText primary='Arqueo' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Receipt /></ListItemIcon>
-              <ListItemText primary='Cheques' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><PlaylistAdd /></ListItemIcon>
-              <ListItemText primary='Contrarecibo' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Note /></ListItemIcon>
-              <ListItemText primary='Vale' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><ListAlt /></ListItemIcon>
-              <ListItemText primary='Vales' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Receipt /></ListItemIcon>
-              <ListItemText primary='Caratula' />
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem button>
-              <ListItemIcon><Folder /></ListItemIcon>
-              <ListItemText primary='Fondos' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><PlaylistAddCheck /></ListItemIcon>
-              <ListItemText primary='Contrarecibo' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><FormatListNumbered /></ListItemIcon>
-              <ListItemText primary='Tabular' />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
-              <ListItemText primary='Pasa' />
-            </ListItem>
-          </List>
-          <Divider />
+          {
+            showAdminBoard &&
+              <List>
+                <ListItem button>
+                  <ListItemIcon><AccountBalance /></ListItemIcon>
+                  <ListItemText primary='Presupuesto' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><MonetizationOn /></ListItemIcon>
+                  <ListItemText primary='Revolvente' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><FileCopy /></ListItemIcon>
+                  <ListItemText primary='Archivos' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><Today /></ListItemIcon>
+                  <ListItemText primary='Registro' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                  <ListItemText primary='Disponible' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><PlaylistAdd /></ListItemIcon>
+                  <ListItemText primary='Contrarecibo' />
+                </ListItem>
+              </List>
+          }
+          {
+            showModeratorBoard &&
+              <List>
+                <ListItem button>
+                  <ListItemIcon><Inbox /></ListItemIcon>
+                  <ListItemText primary='Caja' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><Print /></ListItemIcon>
+                  <ListItemText primary='Arqueo' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><Receipt /></ListItemIcon>
+                  <ListItemText primary='Cheques' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><PlaylistAdd /></ListItemIcon>
+                  <ListItemText primary='Contrarecibo' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><Note /></ListItemIcon>
+                  <ListItemText primary='Vale' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><ListAlt /></ListItemIcon>
+                  <ListItemText primary='Vales' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><Receipt /></ListItemIcon>
+                  <ListItemText primary='Caratula' />
+                </ListItem>
+              </List>
+          }
+          {
+            currentUser &&
+              <List>
+                <ListItem button>
+                  <ListItemIcon><Folder /></ListItemIcon>
+                  <ListItemText primary='Fondos' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><PlaylistAddCheck /></ListItemIcon>
+                  <ListItemText primary='Contrarecibo' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><FormatListNumbered /></ListItemIcon>
+                  <ListItemText primary='Tabular' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
+                  <ListItemText primary='Pasa' />
+                </ListItem>
+              </List>
+          }
           <List>
             {
               showModeratorBoard &&
@@ -289,10 +294,10 @@ export default function Routes (props) {
             {
               currentUser &&
                 <div>
-                  <Link to='/profile'>
+                  <Link to='/dashborad'>
                     <ListItem button>
                       <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                      <ListItemText primary={currentUser.username} />
+                      <ListItemText primary='Dashboard' />
                     </ListItem>
                   </Link>
                   <a href='/login' onClick={logOut}>
@@ -314,8 +319,8 @@ export default function Routes (props) {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/' component={Home} />
-            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/' component={Dashboard} />
+            <Route exact path='/dashborad' component={Dashboard} />
             <Route exact path='/user' component={BoardUser} />
             <Route exact path='/mod' component={BoardModerador} />
             <Route exact path='/admin' component={BoardAdmin} />

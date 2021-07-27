@@ -15,16 +15,14 @@ import Container from '@material-ui/core/Container'
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'column',
     height: '88vh'
   },
   paper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '80vh'
+    alignItems: 'center'
   },
   avatar: {
     margin: theme.spacing(1),
