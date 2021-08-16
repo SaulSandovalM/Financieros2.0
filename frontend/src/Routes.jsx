@@ -40,9 +40,9 @@ import {
 import Login from './components/comun/Login'
 import Register from './components/comun/Register'
 import Dashboard from './components/comun/Dashboard'
-import BoardUser from './components/comun/BoardUser'
-import BoardModerador from './components/comun/BoardModerador'
-import BoardAdmin from './components/comun/BoardAdmin'
+import BoardEmployee from './components/comun/BoardEmployee'
+import BoardManager from './components/comun/BoardManager'
+import BoardDirector from './components/comun/BoardDirector'
 // Ejemplo
 // import TutorialsList from './components/Tutorial-list'
 // import AddTutorial from './components/Add-tutorial'
@@ -113,12 +113,16 @@ export default function Routes (props) {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false)
+
+  const [showFondoBoard, setFondoBoard] = useState(false)
+  const [showTesoreriaBoard, setTesoreriaBoard] = useState(false)
+  const [showPresupuestoBoard, setPresupuestoBoard] = useState(false)
+  const [showValidacionBoard, setValidacionBoard] = useState(false)
   const [showAdminBoard, setAdminBoard] = useState(false)
   const [currentUser, setCurrentUser] = useState(undefined)
 
   const handleDrawerOpen = () => {
-    if (currentUser || showAdminBoard || showModeratorBoard) {
+    if (currentUser || showFondoBoard || showTesoreriaBoard || showPresupuestoBoard || showValidacionBoard || showAdminBoard) {
       setOpen(true)
     }
   }
@@ -130,9 +134,12 @@ export default function Routes (props) {
   useEffect(() => {
     const user = AuthService.getCurrentUser()
     if (user) {
-      setShowModeratorBoard(user.roles.includes('ROLE_MODERATOR'))
-      setAdminBoard(user.roles.includes('ROLE_ADMIN'))
       setCurrentUser(AuthService.getCurrentUser())
+      setFondoBoard(user.roles.includes('ROLE_FONDOS'))
+      setTesoreriaBoard(user.roles.includes('ROLE_TESORERIA'))
+      setPresupuestoBoard(user.roles.includes('ROLE_PRESUPUESTO'))
+      setValidacionBoard(user.roles.includes('ROLE_VALIDACION'))
+      setAdminBoard(user.roles.includes('ROLE_ADMIN'))
     }
   }, [])
 
@@ -181,7 +188,7 @@ export default function Routes (props) {
           </div>
           <Divider />
           {
-            showAdminBoard &&
+            showPresupuestoBoard &&
               <List>
                 <ListItem button>
                   <ListItemIcon><AccountBalance /></ListItemIcon>
@@ -210,7 +217,7 @@ export default function Routes (props) {
               </List>
           }
           {
-            showModeratorBoard &&
+            showTesoreriaBoard &&
               <List>
                 <ListItem button>
                   <ListItemIcon><Inbox /></ListItemIcon>
@@ -243,7 +250,7 @@ export default function Routes (props) {
               </List>
           }
           {
-            currentUser &&
+            showFondoBoard &&
               <List>
                 <ListItem button>
                   <ListItemIcon><Folder /></ListItemIcon>
@@ -264,15 +271,6 @@ export default function Routes (props) {
               </List>
           }
           <List>
-            {
-              showModeratorBoard &&
-                <Link to='/mod'>
-                  <ListItem button>
-                    <ListItemIcon><FileCopy /></ListItemIcon>
-                    <ListItemText primary='Mod' />
-                  </ListItem>
-                </Link>
-            }
             {
               showAdminBoard &&
                 <Link to='/admin'>
@@ -319,11 +317,11 @@ export default function Routes (props) {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/' component={Dashboard} />
-            <Route exact path='/dashborad' component={Dashboard} />
-            <Route exact path='/user' component={BoardUser} />
-            <Route exact path='/mod' component={BoardModerador} />
-            <Route exact path='/admin' component={BoardAdmin} />
+            <Route exact path='/' component={Login} />
+            <Route exact path='/profile' component={Dashboard} />
+            <Route exact path='/user' component={BoardEmployee} />
+            <Route exact path='/mod' component={BoardManager} />
+            <Route exact path='/admin' component={BoardDirector} />
           </Switch>
         </main>
       </div>

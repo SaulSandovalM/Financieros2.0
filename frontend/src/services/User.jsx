@@ -8,12 +8,20 @@ class UserService {
     return axios.get(API_URL + 'all')
   }
 
-  getUserBoard () {
-    return axios.get(API_URL + 'user', { headers: AuthHeader() })
+  getFondoBoard () {
+    return axios.get(API_URL + 'fondo', { headers: AuthHeader() })
   }
 
-  getModeratorBoard () {
-    return axios.get(API_URL + 'mod', { headers: AuthHeader() })
+  getTesoreriaBoard () {
+    return axios.get(API_URL + 'tesoreria', { headers: AuthHeader() })
+  }
+
+  getPresupuestoBoard () {
+    return axios.get(API_URL + 'presupuesto', { headers: AuthHeader() })
+  }
+
+  getValidacionBoard () {
+    return axios.get(API_URL + 'validacion', { headers: AuthHeader() })
   }
 
   getAdminBoard () {

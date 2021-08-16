@@ -13,15 +13,27 @@ module.exports = function (app) {
   app.get('/api/test/all', controller.allAccess)
 
   app.get(
-    '/api/test/user',
-    [authJwt.verifyToken],
-    controller.userBoard
+    '/api/test/fondo',
+    [authJwt.verifyToken, authJwt.isFondo],
+    controller.fondoBoard
   )
 
   app.get(
-    '/api/test/mod',
-    [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    '/api/test/tesoreria',
+    [authJwt.verifyToken, authJwt.isTesoreria],
+    controller.tesoreriaBoard
+  )
+
+  app.get(
+    '/api/test/presupuesto',
+    [authJwt.verifyToken, authJwt.isPresupuesto],
+    controller.presupuestoBoard
+  )
+
+  app.get(
+    '/api/test/validacion',
+    [authJwt.verifyToken, authJwt.isValidacion],
+    controller.validacionBoard
   )
 
   app.get(

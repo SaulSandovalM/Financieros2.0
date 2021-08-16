@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 // services
 import UserService from '../../services/User'
 
-export default function BoardAdmin (props) {
+export default function BoardDirector (props) {
   const [content, setContent] = useState('')
 
   useEffect(() => {
-    UserService.getAdminBoard().then(
+    UserService.getDirectorBoard().then(
       response => {
         setContent(response.data)
       }, error => {

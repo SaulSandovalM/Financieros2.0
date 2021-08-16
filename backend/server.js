@@ -22,11 +22,11 @@ const db = require('./app/models')
 const Role = db.role
 
 // Para desarrollo
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log('Drop and re-sync Database with { force: true }')
-//   initial()
-// })
-db.sequelize.sync()
+db.sequelize.sync({ force: true }).then(() => {
+  console.log('Drop and re-sync Database with { force: true }')
+  initial()
+})
+// db.sequelize.sync()
 
 app.get('/', (req, res) => {
   res.json({ message: 'Funciona' })
@@ -47,16 +47,26 @@ app.listen(PORT, () => {
 function initial () {
   Role.create({
     id: 1,
-    name: 'user'
+    name: 'fondos'
   })
 
   Role.create({
     id: 2,
-    name: 'moderator'
+    name: 'tesoreria'
   })
 
   Role.create({
     id: 3,
+    name: 'presupuesto'
+  })
+
+  Role.create({
+    id: 4,
+    name: 'validacion'
+  })
+
+  Role.create({
+    id: 5,
     name: 'admin'
   })
 }
