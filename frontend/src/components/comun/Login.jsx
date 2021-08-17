@@ -2,43 +2,75 @@ import React, { useState } from 'react'
 // service
 import AuthService from '../../services/Auth'
 // Material Ui
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
+import PersonIcon from '@material-ui/icons/Person'
+import HttpsIcon from '@material-ui/icons/Https'
+import logo from '../imgs/logo.png'
 // Estilos
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '88vh'
+  root: {
+    height: '100vh',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: '2000'
+  },
+  image: {
+    backgroundImage: `url(${logo})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: '#f4f4f4',
+    backgroundSize: 'justify',
+    backgroundPosition: 'center'
   },
   paper: {
+    margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
   form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(2)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#78be20',
+    color: 'white'
+  },
+  back: {
+    backgroundColor: '#07131f',
+    padding: '25px'
+  },
+  text: {
+    color: 'white'
+  },
+  color: {
+    color: 'white',
+    marginTop: '30px'
+  },
+  textField: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingBottom: 0,
+    marginTop: 0,
+    fontWeight: 500
+  },
+  input: {
+    color: 'white'
   }
 }))
 
 export default function Login (props) {
+  // Importaciones de estilos
   const classes = useStyles()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -67,64 +99,68 @@ export default function Login (props) {
   }
 
   return (
-    <Container component='main' maxWidth='xs' className={classes.container}>
+    <Grid container component='main' className={classes.root}>
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component='h1' variant='h5'>
-          Iniciar Sesión
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleLogin}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            label='Usuario'
-            id='username'
-            name='username'
-            value={username}
-            autoFocus
-            onChange={onChangeUsername}
-            error={message === 'Usuario no encontrado.'}
-            helperText={message === 'Usuario no encontrado.' ? message : ''}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            name='password'
-            label='Contraseña'
-            type='password'
-            id='password'
-            autoComplete='current-password'
-            value={password}
-            onChange={onChangePassword}
-            error={message === 'Contraseña invalida!'}
-            helperText={message === 'Contraseña invalida!' ? message : ''}
-          />
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}
-            disabled={loading}
-          >
-            {
-              loading &&
-                <span />
-            }
-            Entrar
-          </Button>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Typography variant='body2' color='textSecondary' align='center'>
-          Copyright © Gobierno del Estado de Hidalgo {new Date().getFullYear()}.
-        </Typography>
-      </Box>
-    </Container>
+      <Grid item xs={false} sm={4} md={9} className={classes.image} />
+      <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square className={classes.back}>
+        <div className={classes.paper}>
+          <Typography component='h1' variant='h3' className={classes.text} align='center'>
+            SISTEMA FINANCIEROS
+          </Typography>
+          <Typography className={classes.color}>
+            Bienvenidos al Sistema Integral Informático de Administración y Finanzas.
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+              <PersonIcon style={{ color: 'white', marginTop: '20px', marginRight: '10px' }} />
+              <TextField
+                id='username'
+                name='username'
+                value={username}
+                label='Usuario'
+                fullWidth
+                required
+                autoComplete='email'
+                autoFocus
+                onChange={onChangeUsername}
+                error={message === 'Usuario no encontrado.'}
+                helperText={message === 'Usuario no encontrado.' ? message : ''}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '25px' }}>
+              <HttpsIcon style={{ color: 'white', marginTop: '20px', marginRight: '10px' }} />
+              <TextField
+                required
+                fullWidth
+                name='password'
+                label='Contraseña'
+                type='password'
+                id='password'
+                onChange={onChangePassword}
+                autoComplete='current-password'
+              />
+            </div>
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              className={classes.submit}
+              disabled={loading}
+            >
+              {
+                loading &&
+                  <span />
+              }
+              Entrar
+            </Button>
+            <Box mt={5}>
+              <Typography variant='body2' align='center' className={classes.text}>
+                © Todos los derechos reservados PGJEH {new Date().getFullYear()}
+              </Typography>
+            </Box>
+          </form>
+        </div>
+      </Grid>
+    </Grid>
   )
 }

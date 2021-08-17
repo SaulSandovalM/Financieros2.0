@@ -106,14 +106,39 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  linkDecoration: {
+    textDecoration: 'none',
+    color: 'black'
+  },
+  grow: {
+    flexGrow: 1
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block'
+    }
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    }
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    }
   }
 }))
 
 export default function Routes (props) {
   const classes = useStyles()
   const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
 
+  const [open, setOpen] = useState(false)
   const [showFondoBoard, setFondoBoard] = useState(false)
   const [showTesoreriaBoard, setTesoreriaBoard] = useState(false)
   const [showPresupuestoBoard, setPresupuestoBoard] = useState(false)
@@ -159,16 +184,16 @@ export default function Routes (props) {
         >
           <Toolbar>
             <IconButton
+              edge='start'
+              className={classes.menuButton}
               color='inherit'
               aria-label='open drawer'
               onClick={handleDrawerOpen}
-              edge='start'
-              className={clsx(classes.menuButton, open && classes.hide)}
             >
               <Menu />
             </IconButton>
-            <Typography variant='h6' noWrap>
-              Dirección de Recursos Financieros
+            <Typography className={classes.title} variant='h6' noWrap>
+               Dirección de Recursos Financieros
             </Typography>
           </Toolbar>
         </AppBar>
@@ -292,10 +317,10 @@ export default function Routes (props) {
             {
               currentUser &&
                 <div>
-                  <Link to='/dashborad'>
+                  <Link to='/profile' className={classes.linkDecoration}>
                     <ListItem button>
                       <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                      <ListItemText primary='Dashboard' />
+                      <ListItemText primary='Perfil' />
                     </ListItem>
                   </Link>
                   <a href='/login' onClick={logOut}>
@@ -317,8 +342,8 @@ export default function Routes (props) {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/' component={Login} />
             <Route exact path='/profile' component={Dashboard} />
+            <Route exact path='/' component={Login} />
             <Route exact path='/user' component={BoardEmployee} />
             <Route exact path='/mod' component={BoardManager} />
             <Route exact path='/admin' component={BoardDirector} />
