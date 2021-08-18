@@ -25,13 +25,13 @@ isFondo = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === 'fondo') {
+        if (roles[i].name === 'fondos') {
           next()
           return
         }
       }
       res.status(403).send({
-        message: 'Requiere rol de moderador!'
+        message: 'Requiere rol de fondos!'
       })
     })
   })
@@ -47,7 +47,7 @@ isTesoreria = (req, res, next) => {
         }
       }
       res.status(403).send({
-        message: 'Requiere rol de moderador!'
+        message: 'Requiere rol de tesoreria!'
       })
     })
   })
@@ -63,7 +63,7 @@ isPresupuesto = (req, res, next) => {
         }
       }
       res.status(403).send({
-        message: 'Requiere rol de moderador!'
+        message: 'Requiere rol de presupuesto!'
       })
     })
   })
@@ -79,7 +79,7 @@ isValidacion = (req, res, next) => {
         }
       }
       res.status(403).send({
-        message: 'Requiere rol de moderador!'
+        message: 'Requiere rol de validación!'
       })
     })
   })
@@ -95,7 +95,7 @@ isAdmin = (req, res, next) => {
         }
       }
       res.status(403).send({
-        message: 'Requiere rol de administrador!'
+        message: 'Requiere rol de director!'
       })
     })
   })

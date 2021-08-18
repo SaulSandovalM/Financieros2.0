@@ -62,8 +62,16 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 0,
     fontWeight: 500
   },
-  input: {
-    color: 'white'
+  border: {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white"
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white"
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white"
+    }
   }
 }))
 
@@ -92,7 +100,8 @@ export default function Login (props) {
       props.history.push('/profile')
       window.location.reload()
     }, error => {
-      const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+      const resMessage = (
+      error.response && error.response.data && error.response.data.message) || error.message || error.toString()
       setLoading(false)
       setMessage(resMessage)
     })
@@ -113,7 +122,8 @@ export default function Login (props) {
           <form className={classes.form} noValidate onSubmit={handleLogin}>
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
               <PersonIcon style={{ color: 'white', marginTop: '20px', marginRight: '10px' }} />
-              <TextField
+                <TextField
+                className={classes.border}
                 id='username'
                 name='username'
                 value={username}
@@ -125,6 +135,8 @@ export default function Login (props) {
                 onChange={onChangeUsername}
                 error={message === 'Usuario no encontrado.'}
                 helperText={message === 'Usuario no encontrado.' ? message : ''}
+                InputProps={{ style: { color: 'white', borderColor: 'white' } }}
+                InputLabelProps={{ style: { color: 'white', borderColor: 'white' } }}
               />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '25px' }}>
@@ -138,6 +150,8 @@ export default function Login (props) {
                 id='password'
                 onChange={onChangePassword}
                 autoComplete='current-password'
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
               />
             </div>
             <Button

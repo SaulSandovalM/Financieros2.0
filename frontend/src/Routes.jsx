@@ -40,7 +40,7 @@ import {
 import Login from './components/comun/Login'
 import Register from './components/comun/Register'
 import Dashboard from './components/comun/Dashboard'
-import BoardEmployee from './components/comun/BoardEmployee'
+import BoardFondo from './components/comun/BoardFondo'
 import BoardManager from './components/comun/BoardManager'
 import BoardDirector from './components/comun/BoardDirector'
 // Ejemplo
@@ -60,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    })
+    }),
+    backgroundColor: '#07131f'
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -147,7 +148,14 @@ export default function Routes (props) {
   const [currentUser, setCurrentUser] = useState(undefined)
 
   const handleDrawerOpen = () => {
-    if (currentUser || showFondoBoard || showTesoreriaBoard || showPresupuestoBoard || showValidacionBoard || showAdminBoard) {
+    if (
+      currentUser || 
+      showFondoBoard || 
+      showTesoreriaBoard || 
+      showPresupuestoBoard || 
+      showValidacionBoard || 
+      showAdminBoard
+    ) {
       setOpen(true)
     }
   }
@@ -344,7 +352,7 @@ export default function Routes (props) {
             <Route exact path='/register' component={Register} />
             <Route exact path='/profile' component={Dashboard} />
             <Route exact path='/' component={Login} />
-            <Route exact path='/user' component={BoardEmployee} />
+            <Route exact path='/user' component={BoardFondo} />
             <Route exact path='/mod' component={BoardManager} />
             <Route exact path='/admin' component={BoardDirector} />
           </Switch>
