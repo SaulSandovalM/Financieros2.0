@@ -61,17 +61,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0,
     marginTop: 0,
     fontWeight: 500
-  },
-  border: {
-    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white"
-    },
-    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white"
-    },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white"
-    }
   }
 }))
 
@@ -97,7 +86,7 @@ export default function Login (props) {
     setMessage('')
     setLoading(true)
     AuthService.login(username, password).then(() => {
-      props.history.push('/profile')
+      props.history.push('/perfil')
       window.location.reload()
     }, error => {
       const resMessage = (

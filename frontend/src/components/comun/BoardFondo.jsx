@@ -67,11 +67,22 @@ export default function BoardFondo (props) {
   }, [])
 
   return (
-    <Container maxWidth='lg'>
+    <form>
     {content === 'Contenido de Fondo.' ?
       <Container maxWidth='lg'>
-        {/* Fondo */}
+        {/* Buscador */}
         <Grid container>
+          <Grid item xs={12} md={12} lg={12}>
+            <Paper className={fixedHeightPaper}>
+              <div className={classes.title}>Buscador</div>
+              <div className={classes.inputContent}>
+                <div>Fondo</div>
+              </div>
+            </Paper>
+          </Grid>
+        </Grid>
+        {/* Fondo */}
+        <Grid container className={classes.container}>
           <Grid item xs={12} md={12} lg={12}>
             <Paper className={fixedHeightPaper}>
               <div className={classes.title}>Fondos</div>
@@ -180,6 +191,6 @@ export default function BoardFondo (props) {
           No cuentas con los permisos suficientes.
         </div>
       }
-    </Container>
+    </form>
   )
 }

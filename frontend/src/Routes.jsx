@@ -14,6 +14,11 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import IconButton from '@material-ui/core/IconButton'
+import Badge from '@material-ui/core/Badge'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
+import MenuIcon from '@material-ui/icons/Menu'
+import Avatar from '@material-ui/core/Avatar'
 import {
   AccountBalance,
   MonetizationOn,
@@ -29,20 +34,25 @@ import {
   FormatListNumbered,
   AssignmentTurnedIn,
   PlaylistAdd,
-  Menu,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  More,
+  Notifications,
+  Mail,
+  AccountCircle
 } from '@material-ui/icons'
+import perfil from './components/imgs/yo.jpeg'
 // Redux
 // import { Provider } from 'react-redux'
 // Componentes
-// Login
 import Login from './components/comun/Login'
 import Register from './components/comun/Register'
-import Dashboard from './components/comun/Dashboard'
+import Perfil from './components/comun/Perfil'
 import BoardFondo from './components/comun/BoardFondo'
 import BoardManager from './components/comun/BoardManager'
 import BoardDirector from './components/comun/BoardDirector'
+// Fondos
+import Fondos from './components/fondos/Fondos'
 // Ejemplo
 // import TutorialsList from './components/Tutorial-list'
 // import AddTutorial from './components/Add-tutorial'
@@ -132,13 +142,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none'
     }
+  },
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4)
   }
 }))
 
 export default function Routes (props) {
   const classes = useStyles()
   const theme = useTheme()
-
+  // States
   const [open, setOpen] = useState(false)
   const [showFondoBoard, setFondoBoard] = useState(false)
   const [showTesoreriaBoard, setTesoreriaBoard] = useState(false)
@@ -146,7 +160,13 @@ export default function Routes (props) {
   const [showValidacionBoard, setValidacionBoard] = useState(false)
   const [showAdminBoard, setAdminBoard] = useState(false)
   const [currentUser, setCurrentUser] = useState(undefined)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
 
+  const isMenuOpen = Boolean(anchorEl)
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
+
+  // Funciones
   const handleDrawerOpen = () => {
     if (
       currentUser || 
@@ -180,6 +200,85 @@ export default function Routes (props) {
     AuthService.logout()
   }
 
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null)
+  }
+
+  const handleMenuClose = () => {
+    setAnchorEl(null)
+    handleMobileMenuClose()
+  }
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget)
+  }
+
+  // Components
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <Link to='/perfil' className={classes.linkDecoration}> 
+        <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+      </Link>
+      <Link to='/login' onClick={logOut} className={classes.linkDecoration}>
+        <MenuItem onClick={handleMenuClose}>Cerrar Sesión</MenuItem>
+      </Link>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton aria-label='show 4 new mails' color='inherit'>
+          <Badge badgeContent={4} color='secondary'>
+            <Mail />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label='show 11 new notifications' color='inherit'>
+          <Badge badgeContent={11} color='secondary'>
+            <Notifications />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label='account of current user'
+          aria-controls='primary-search-account-menu'
+          aria-haspopup='true'
+          color='inherit'
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  )
+
   return (
     <Router>
       <div className={classes.root}>
@@ -198,13 +297,49 @@ export default function Routes (props) {
               aria-label='open drawer'
               onClick={handleDrawerOpen}
             >
-              <Menu />
+              <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant='h6' noWrap>
-               Dirección de Recursos Financieros
+              Dirección de Recursos Financieros
             </Typography>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <Mail />
+                </Badge>
+              </IconButton>
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={17} color="secondary">
+                  <Notifications />
+                </Badge>
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Avatar src={perfil} className={classes.small} alt='' />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <More />
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
         <Drawer
           className={classes.drawer}
           variant='persistent'
@@ -285,10 +420,12 @@ export default function Routes (props) {
           {
             showFondoBoard &&
               <List>
-                <ListItem button>
-                  <ListItemIcon><Folder /></ListItemIcon>
-                  <ListItemText primary='Fondos' />
-                </ListItem>
+                <Link to='/Fondos' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><Folder /></ListItemIcon>
+                    <ListItemText primary='Fondos' />
+                  </ListItem>
+                </Link>
                 <ListItem button>
                   <ListItemIcon><PlaylistAddCheck /></ListItemIcon>
                   <ListItemText primary='Contrarecibo' />
@@ -313,32 +450,15 @@ export default function Routes (props) {
                   </ListItem>
                 </Link>
             }
-            {
+            {/*
               currentUser &&
                 <Link to='/user'>
                   <ListItem button>
                     <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-                    <ListItemText primary='User' />
+                    <ListItemText primary='Fondos' />
                   </ListItem>
                 </Link>
-            }
-            {
-              currentUser &&
-                <div>
-                  <Link to='/profile' className={classes.linkDecoration}>
-                    <ListItem button>
-                      <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                      <ListItemText primary='Perfil' />
-                    </ListItem>
-                  </Link>
-                  <a href='/login' onClick={logOut}>
-                    <ListItem button>
-                      <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                      <ListItemText primary='Salir' />
-                    </ListItem>
-                  </a>
-                </div>
-            }
+            */}
           </List>
         </Drawer>
         <main
@@ -350,8 +470,9 @@ export default function Routes (props) {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/profile' component={Dashboard} />
+            <Route exact path='/perfil' component={Perfil} />
             <Route exact path='/' component={Login} />
+            <Route exact path='/Fondos' component={Fondos} />
             <Route exact path='/user' component={BoardFondo} />
             <Route exact path='/mod' component={BoardManager} />
             <Route exact path='/admin' component={BoardDirector} />
