@@ -51,8 +51,19 @@ import Perfil from './components/comun/Perfil'
 import BoardFondo from './components/comun/BoardFondo'
 import BoardManager from './components/comun/BoardManager'
 import BoardDirector from './components/comun/BoardDirector'
+// Presupuesto
+import Presupuesto from './components/presupuesto/Presupuesto'
+import Revolvente from './components/presupuesto/Revolvente'
+
+//Tesoreria
+
 // Fondos
 import Fondos from './components/fondos/Fondos'
+
+// Validacion
+
+// Direccion
+
 // Ejemplo
 // import TutorialsList from './components/Tutorial-list'
 // import AddTutorial from './components/Add-tutorial'
@@ -358,14 +369,18 @@ export default function Routes (props) {
           {
             showPresupuestoBoard &&
               <List>
-                <ListItem button>
-                  <ListItemIcon><AccountBalance /></ListItemIcon>
-                  <ListItemText primary='Presupuesto' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><MonetizationOn /></ListItemIcon>
-                  <ListItemText primary='Revolvente' />
-                </ListItem>
+                <Link to='/presupuesto' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><AccountBalance /></ListItemIcon>
+                    <ListItemText primary='Presupuesto' />
+                  </ListItem>
+                </Link>
+                <Link to='/revolvente' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><MonetizationOn /></ListItemIcon>
+                    <ListItemText primary='Revolvente' />
+                  </ListItem>
+                </Link>
                 <ListItem button>
                   <ListItemIcon><FileCopy /></ListItemIcon>
                   <ListItemText primary='Archivos' />
@@ -420,7 +435,7 @@ export default function Routes (props) {
           {
             showFondoBoard &&
               <List>
-                <Link to='/Fondos' className={classes.linkDecoration}>
+                <Link to='/fondos' className={classes.linkDecoration}>
                   <ListItem button>
                     <ListItemIcon><Folder /></ListItemIcon>
                     <ListItemText primary='Fondos' />
@@ -472,7 +487,12 @@ export default function Routes (props) {
             <Route exact path='/register' component={Register} />
             <Route exact path='/perfil' component={Perfil} />
             <Route exact path='/' component={Login} />
-            <Route exact path='/Fondos' component={Fondos} />
+            {/* Presupuesto */}
+            <Route exact path='/presupuesto' component={Presupuesto} />
+            <Route exact path='/revolvente' component={Revolvente} />
+
+            {/* Fondos */}
+            <Route exact path='/fondos' component={Fondos} />
             <Route exact path='/user' component={BoardFondo} />
             <Route exact path='/mod' component={BoardManager} />
             <Route exact path='/admin' component={BoardDirector} />
