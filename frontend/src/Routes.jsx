@@ -44,7 +44,7 @@ import {
 import perfil from './components/imgs/yo.jpeg'
 // Redux
 // import { Provider } from 'react-redux'
-// Componentes
+// Comun
 import Login from './components/comun/Login'
 import Register from './components/comun/Register'
 import Perfil from './components/comun/Perfil'
@@ -54,7 +54,8 @@ import BoardDirector from './components/comun/BoardDirector'
 // Presupuesto
 import Presupuesto from './components/presupuesto/Presupuesto'
 import Revolvente from './components/presupuesto/Revolvente'
-
+import Archivos from './components/presupuesto/Archivos'
+import Disponible from './components/presupuesto/Disponible'
 //Tesoreria
 
 // Fondos
@@ -381,18 +382,22 @@ export default function Routes (props) {
                     <ListItemText primary='Revolvente' />
                   </ListItem>
                 </Link>
-                <ListItem button>
-                  <ListItemIcon><FileCopy /></ListItemIcon>
-                  <ListItemText primary='Archivos' />
-                </ListItem>
+                <Link to='/archivos' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><FileCopy /></ListItemIcon>
+                    <ListItemText primary='Archivos' />
+                  </ListItem>
+                </Link>
                 <ListItem button>
                   <ListItemIcon><Today /></ListItemIcon>
                   <ListItemText primary='Registro' />
                 </ListItem>
-                <ListItem button>
-                  <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-                  <ListItemText primary='Disponible' />
-                </ListItem>
+                <Link to='/disponible' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                    <ListItemText primary='Disponible' />
+                  </ListItem>
+                </Link>
                 <ListItem button>
                   <ListItemIcon><PlaylistAdd /></ListItemIcon>
                   <ListItemText primary='Contrarecibo' />
@@ -490,7 +495,8 @@ export default function Routes (props) {
             {/* Presupuesto */}
             <Route exact path='/presupuesto' component={Presupuesto} />
             <Route exact path='/revolvente' component={Revolvente} />
-
+            <Route exact path='/archivos' component={Archivos} />
+            <Route exact path='/disponible' component={Disponible} />
             {/* Fondos */}
             <Route exact path='/fondos' component={Fondos} />
             <Route exact path='/user' component={BoardFondo} />
