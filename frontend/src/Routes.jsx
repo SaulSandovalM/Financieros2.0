@@ -56,8 +56,15 @@ import Presupuesto from './components/presupuesto/Presupuesto'
 import Revolvente from './components/presupuesto/Revolvente'
 import Archivos from './components/presupuesto/Archivos'
 import Disponible from './components/presupuesto/Disponible'
+import Contrarecibo from './components/presupuesto/Contrarecibo'
 //Tesoreria
-
+import Caja from './components/tesoreria/Caja'
+import Arqueo from './components/tesoreria/Arqueo'
+import Cheques from './components/tesoreria/Cheques'
+import ContraVales from './components/tesoreria/ContraVales'
+import Vales from './components/tesoreria/Vales'
+import ValesList from './components/tesoreria/ValesList'
+import Caratula from './components/tesoreria/Caratula'
 // Fondos
 import Fondos from './components/fondos/Fondos'
 
@@ -398,43 +405,59 @@ export default function Routes (props) {
                     <ListItemText primary='Disponible' />
                   </ListItem>
                 </Link>
-                <ListItem button>
-                  <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                  <ListItemText primary='Contrarecibo' />
-                </ListItem>
+                <Link to='/contrarecibo' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><PlaylistAdd /></ListItemIcon>
+                    <ListItemText primary='Contrarecibo' />
+                  </ListItem>
+                </Link>
               </List>
           }
           {
             showTesoreriaBoard &&
               <List>
-                <ListItem button>
-                  <ListItemIcon><Inbox /></ListItemIcon>
-                  <ListItemText primary='Caja' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><Print /></ListItemIcon>
-                  <ListItemText primary='Arqueo' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><Receipt /></ListItemIcon>
-                  <ListItemText primary='Cheques' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                  <ListItemText primary='Contrarecibo' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><Note /></ListItemIcon>
-                  <ListItemText primary='Vale' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><ListAlt /></ListItemIcon>
-                  <ListItemText primary='Vales' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><Receipt /></ListItemIcon>
-                  <ListItemText primary='Caratula' />
-                </ListItem>
+                <Link to='/caja' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><Inbox /></ListItemIcon>
+                    <ListItemText primary='Caja' />
+                  </ListItem>
+                </Link>
+                <Link to='/arqueo' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><Print /></ListItemIcon>
+                    <ListItemText primary='Arqueo' />
+                  </ListItem>
+                </Link>
+                <Link to='/cheques' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><Receipt /></ListItemIcon>
+                    <ListItemText primary='Cheques' />
+                  </ListItem>
+                </Link>  
+                <Link to='/contrarecibos' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><PlaylistAdd /></ListItemIcon>
+                    <ListItemText primary='Contrarecibo' />
+                  </ListItem>
+                </Link>  
+                <Link to='/vales' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><Note /></ListItemIcon>
+                    <ListItemText primary='Vale' />
+                  </ListItem>
+                </Link>
+                <Link to='/valeslist' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><ListAlt /></ListItemIcon>
+                    <ListItemText primary='Vales' />
+                  </ListItem>
+                </Link>
+                <Link to='/caratula' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><Receipt /></ListItemIcon>
+                    <ListItemText primary='Caratula' />
+                  </ListItem>
+                </Link>
               </List>
           }
           {
@@ -488,6 +511,7 @@ export default function Routes (props) {
         >
           <div className={classes.drawerHeader} />
           <Switch>
+            {/* Comun */}
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/perfil' component={Perfil} />
@@ -497,6 +521,15 @@ export default function Routes (props) {
             <Route exact path='/revolvente' component={Revolvente} />
             <Route exact path='/archivos' component={Archivos} />
             <Route exact path='/disponible' component={Disponible} />
+            <Route exact path='/contrarecibo' component={Contrarecibo} />
+            {/* Tesoreria */}
+            <Route exact path='/caja' component={Caja} />
+            <Route exact path='/arqueo' component={Arqueo} />
+            <Route exact path='/cheques' component={Cheques} />
+            <Route exact path='/contrarecibos' component={ContraVales} />
+            <Route exact path='/valeslist' component={ValesList} />
+            <Route exact path='/vales' component={Vales} />
+            <Route exact path='/caratula' component={Caratula} />
             {/* Fondos */}
             <Route exact path='/fondos' component={Fondos} />
             <Route exact path='/user' component={BoardFondo} />
