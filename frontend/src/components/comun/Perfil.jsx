@@ -57,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: '100%'
+  },
+  centerImg: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 }))
 
@@ -79,7 +83,7 @@ export default function Profile (props) {
             <Paper className={fixedHeightPaper}>
               <div className={classes.align}>
                 <div className={classes.column}>
-                  <div>
+                  <div className={classes.centerImg}>
                     <img src={perfil} className={classes.img} alt='' />
                   </div>
                   <div className={classes.align}>

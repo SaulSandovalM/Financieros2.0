@@ -67,9 +67,8 @@ import ValesList from './components/tesoreria/ValesList'
 import Caratula from './components/tesoreria/Caratula'
 // Fondos
 import Fondos from './components/fondos/Fondos'
-
 // Validacion
-
+import Validacion from './components/validacion/Validacion'
 // Direccion
 
 // Ejemplo
@@ -461,6 +460,16 @@ export default function Routes (props) {
               </List>
           }
           {
+            <List>
+              <Link to='/validacion' className={classes.linkDecoration}>
+                <ListItem button>
+                  <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
+                  <ListItemText primary='Validacion' />
+                </ListItem>
+              </Link>
+            </List>
+          }
+          {
             showFondoBoard &&
               <List>
                 <Link to='/fondos' className={classes.linkDecoration}>
@@ -530,6 +539,8 @@ export default function Routes (props) {
             <Route exact path='/valeslist' component={ValesList} />
             <Route exact path='/vales' component={Vales} />
             <Route exact path='/caratula' component={Caratula} />
+            {/* Validacion */}
+            <Route exact path='/validacion' component={Validacion} />
             {/* Fondos */}
             <Route exact path='/fondos' component={Fondos} />
             <Route exact path='/user' component={BoardFondo} />
