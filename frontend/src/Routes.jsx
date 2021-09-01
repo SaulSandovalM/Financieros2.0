@@ -67,6 +67,7 @@ import ValesList from './components/tesoreria/ValesList'
 import Caratula from './components/tesoreria/Caratula'
 // Fondos
 import Fondos from './components/fondos/Fondos'
+
 // Validacion
 import Validacion from './components/validacion/Validacion'
 // Direccion
@@ -114,7 +115,6 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerHeader: {
     display: 'flex',
-    alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necesario para que el contenido esté debajo de la barra
     ...theme.mixins.toolbar,
@@ -448,6 +448,7 @@ export default function Routes (props) {
                 <Link to='/valeslist' className={classes.linkDecoration}>
                   <ListItem button>
                     <ListItemIcon><ListAlt /></ListItemIcon>
+                    <ListItemIcon><ListAlt /></ListItemIcon>
                     <ListItemText primary='Vales' />
                   </ListItem>
                 </Link>
@@ -460,14 +461,15 @@ export default function Routes (props) {
               </List>
           }
           {
-            <List>
-              <Link to='/validacion' className={classes.linkDecoration}>
-                <ListItem button>
-                  <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
-                  <ListItemText primary='Validacion' />
-                </ListItem>
-              </Link>
-            </List>
+            showValidacionBoard &&
+              <List>
+                <Link to='/validacion' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
+                    <ListItemText primary='Validación' />
+                  </ListItem>
+                </Link>
+              </List>
           }
           {
             showFondoBoard &&

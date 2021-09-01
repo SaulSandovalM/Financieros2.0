@@ -1,7 +1,11 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+// Material Ui
+import { 
+  Button, 
+  Grid, 
+  Paper, 
+  TextField 
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
@@ -17,19 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: '18px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: '20px'
   },
-  inputsContent: {
-    marginTop: '20px',
+  btn: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     width: '100%'
   },
-  input: {
-    width: '24%'
-  },
-  input2: {
-    width: '100%'
+  btnBack: {
+    background: '#07131f',
+    color: 'white'
   }
 }))
 
@@ -41,203 +43,254 @@ export default function Presupuesto () {
 
   return (
     <form>
-      <Grid container>
-        <Grid item xs={12} md={12} lg={12}>
-          <Paper className={fixedHeightPaper}>
-            <div className={classes.title}>Presupuesto</div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Año'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Rm'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Ur'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Up'
-                variant='outlined'
-                className={classes.input}
-              />
+      <div className={classes.title}>Presupuesto</div>
+      <Paper className={fixedHeightPaper}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Año'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Rm'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Ur'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Up'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Rubro'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Tg'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Ogasto'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='F'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Fu'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Sf'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Eje'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='S'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Prog'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Sp'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Obj'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Proy'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Est'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Obra'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Ben'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Eg'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Mi'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Pr'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Pd'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Itrans'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Min'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Igest'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='La'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Ods'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Et'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Ff'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Of'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <TextField 
+              label='Np'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+            <TextField 
+              label='Cpa'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+            <TextField 
+              label='Nombre Proyecto'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+            <div className={classes.btn}>
+              <Button variant='outlined' className={classes.btnBack}>Enviar</Button>
             </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Rubro'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Tg'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Ogasto'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='F'
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Fu'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Sf'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Eje'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='S' 
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Prog'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Sp'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Obj'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Proy'
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Est'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Obra'
-                variant='outlined'
-                className={classes.input}  
-              />
-              <TextField 
-                label='Ben'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Eg'
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Mi'
-                variant='outlined'
-                className={classes.input}
-              /> 
-              <TextField 
-                label='Pr'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Pd'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Itrans'
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Min'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Igest'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='La'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Obs'
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Et'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Ff'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Of'
-                variant='outlined'
-                className={classes.input}
-              />
-              <TextField 
-                label='Np'
-                variant='outlined'
-                className={classes.input}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Cpa'
-                variant='outlined'
-                className={classes.input2}
-              />
-            </div>
-            <div className={classes.inputsContent}>
-              <TextField 
-                label='Nombre proyecto'
-                variant='outlined'
-                className={classes.input2}
-              />
-            </div>
-          </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </form>
   )
 }

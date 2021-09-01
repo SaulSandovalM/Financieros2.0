@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
 // routes
 require('./app/routes/user.routes')(app)
 require('./app/routes/auth.routes')(app)
+require('./app/routes/presupuesto.routes')(app)
 
 // establecemos nuestro puerto
 const PORT = process.env.PORT || 8080
