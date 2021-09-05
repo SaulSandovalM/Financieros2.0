@@ -14,6 +14,7 @@ import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
+
 // Estilos
 const useStyles = makeStyles((theme) => ({
   paper: {

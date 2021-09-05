@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Validacion () {
   // State
   const classes = useStyles()
+
   const [state, setState] = useState({
     persona: '',
     fecha: '',
