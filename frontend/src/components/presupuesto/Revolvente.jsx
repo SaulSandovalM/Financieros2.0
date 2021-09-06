@@ -14,7 +14,6 @@ import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
-
 // Estilos
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -127,7 +126,7 @@ export default function Revolvente () {
       <Paper className={fixedHeightPaper}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} lg={3}>
-            <FormControl variant='outlined' fullWidth>
+            <FormControl fullWidth>
               <InputLabel>Up</InputLabel>
               <Select
                 label='Up'
@@ -140,7 +139,7 @@ export default function Revolvente () {
             </FormControl>
           </Grid>
           <Grid item xs={12} md={3} lg={3}>
-            <FormControl variant='outlined' fullWidth>
+            <FormControl fullWidth>
               <InputLabel>Partida</InputLabel>
               <Select
                 label='Partida'
@@ -152,7 +151,7 @@ export default function Revolvente () {
             </FormControl>
           </Grid>
           <Grid item xs={12} md={3} lg={3}>
-            <FormControl variant='outlined' fullWidth>
+            <FormControl fullWidth>
               <InputLabel>Rubro</InputLabel>
               <Select
                 label='Rubro'
@@ -164,7 +163,7 @@ export default function Revolvente () {
             </FormControl>
           </Grid>
           <Grid item xs={12} md={3} lg={3}>
-            <FormControl variant='outlined' fullWidth>
+            <FormControl fullWidth>
               <InputLabel>Mes</InputLabel>
               <Select
                 label='Mes'
@@ -189,7 +188,6 @@ export default function Revolvente () {
           <Grid item xs={12} md={3} lg={3}>
             <TextField 
               label='Cantidad'
-              variant='outlined'
               onChange={handleNumFormat}
               fullWidth
               InputProps={{
@@ -200,7 +198,6 @@ export default function Revolvente () {
           <Grid item xs={12} md={3} lg={3}>
             <TextField 
               label='Oficio de autorización'
-              variant='outlined'
               fullWidth
             />
           </Grid>

@@ -1,22 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+// Material ui
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableRow from '@material-ui/core/TableRow'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import IconButton from '@material-ui/core/IconButton'
-import FirstPageIcon from '@material-ui/icons/FirstPage'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import LastPageIcon from '@material-ui/icons/LastPage'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Typography,
+  Paper,
+  IconButton
+} from '@material-ui/core'
+// Iconos
+import {
+  FirstPage,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  LastPage
+} from '@material-ui/icons'
 import NumberFormat from 'react-number-format'
+// Servicios
+import PresupuestoDataService from '../../services/Presupuesto'
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -53,7 +60,7 @@ function TablePaginationActions (props) {
         disabled={page === 0}
         aria-label='first page'
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === 'rtl' ? <LastPage /> : <FirstPage />}
       </IconButton>
       <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label='previous page'>
         {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
@@ -70,7 +77,7 @@ function TablePaginationActions (props) {
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label='last page'
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === 'rtl' ? <FirstPage /> : <LastPage />}
       </IconButton>
     </div>
   )
@@ -83,27 +90,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired
 }
 
-function createData(up, partida, rubro, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic) {
-  return { up, partida, rubro, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic }
-}
-
-const rows = [
-  createData('01', 211001, 355001, 1020320, 305, 3.7, 67, 4.3, 123, 123, 123, 123, 123, 123, 123),
-  createData('02', 452202, 252020, 51, 4.9, 213, 4132, 123 ,123 ,123 ,123 ,123 ,123 ,123 ,1233),
-  createData('03', 262321, 161212, 24, 6.0, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('04', 159321, 612124, 24, 4.0, 111, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('05', 356321, 163434, 49, 3.9, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('06', 408321, 334342, 87, 6.5, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('07', 237123, 234564, 37, 4.3, 234, 234, 234, 234, 234, 234, 234, 234, 234, 234),
-  createData('08', 375222, 123456, 94, 0.0, 234, 456, 456, 456, 456, 456, 456 ,456, 456, 456),
-  createData('09', 518111, 265656, 65, 7.0, 1123, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('10', 392333, 256567, 98, 0.0, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('11', 318222, 123003, 81, 2.0, 123, 123, 123, 123, 123, 12, 312, 31, 231, 23, 123),
-  createData('12', 360123, 192323, 9, 37.0, 123, 123, 123, 123, 123, 123, 123, 123, 123, 123),
-  createData('13', 437123, 180454, 63, 4.0, 123, 123, 123, 123, 12, 312, 3123, 123, 123, 123)
-]
-
-function descendingComparator(a, b, orderBy) {
+function descendingComparator (a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1
   }
@@ -113,13 +100,13 @@ function descendingComparator(a, b, orderBy) {
   return 0
 }
 
-function getComparator(order, orderBy) {
+function getComparator (order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-function stableSort(array, comparator) {
+function stableSort (array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index])
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0])
@@ -145,12 +132,12 @@ const headCells = [
   { id: 'oct', numeric: true, disablePadding: false, label: 'Octubre' },
   { id: 'nov', numeric: true, disablePadding: false, label: 'Noviembre' },
   { id: 'dic', numeric: true, disablePadding: false, label: 'Diciembre' },
-  { id: 'total', numeric: true, disablePadding: false, label: 'Total'}
+  { id: 'total', numeric: true, disablePadding: false, label: 'Total' }
 ]
 
-function EnhancedTableHead(props) {
+function EnhancedTableHead (props) {
   const { classes, order, orderBy, onRequestSort } = props
-  
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
   }
@@ -191,33 +178,7 @@ EnhancedTableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-}
-
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1)
-  },
-  title: {
-    flex: '1 1 100%',
-  }
-}))
-
-const EnhancedTableToolbar = (props) => {
-  const classes = useToolbarStyles()
-
-  return (
-    <Toolbar>
-      <Typography className={classes.title} variant='h6' id='tableTitle' component='div'>
-        Disponible
-      </Typography>
-    </Toolbar>
-  )
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
+  rowCount: PropTypes.number.isRequired
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -227,7 +188,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'auto'
   },
   table: {
-    minWidth: 700,
+    minWidth: 700
   },
   visuallyHidden: {
     border: 0,
@@ -238,7 +199,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     position: 'absolute',
     top: 20,
-    width: 1,
+    width: 1
+  },
+  title: {
+    marginBottom: '20px'
   }
 }))
 
@@ -277,20 +241,17 @@ export default function Disponible () {
   const [selected, setSelected] = useState([])
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [state, setState] = useState({
+    disponible: [],
+    currentDisponible: null,
+    currentIndex: -1,
+    search: ''
+  })
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc'
     setOrder(isAsc ? 'desc' : 'asc')
     setOrderBy(property)
-  }
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name)
-      setSelected(newSelecteds)
-      return
-    }
-    setSelected([])
   }
 
   const handleClick = (event, name) => {
@@ -320,97 +281,113 @@ export default function Disponible () {
     setPage(0)
   }
 
+  useEffect(() => {
+    // Actualiza la API
+    PresupuestoDataService.getAll().then(response => {
+      setState({
+        disponible: response.data
+      })
+      console.log(response.data)
+    }).catch(e => {
+      console.log(e)
+    })
+  }, [])
+
   return (
-    <Paper className={classes.paper}>
-      <EnhancedTableToolbar numSelected={selected.length} />
-      <Table
-        className={classes.table}
-        aria-labelledby='tableTitle'
-        aria-label='enhanced table'
-      >
-        <EnhancedTableHead
-          classes={classes}
-          numSelected={selected.length}
-          order={order}
-          orderBy={orderBy}
-          onSelectAllClick={handleSelectAllClick}
-          onRequestSort={handleRequestSort}
-          rowCount={rows.length}
+    <div>
+      <Typography className={classes.title} variant='h6' id='tableTitle' component='div'>
+        Disponible
+      </Typography>
+      <Paper className={classes.paper}>
+        <Table
+          className={classes.table}
+          aria-labelledby='tableTitle'
+          aria-label='enhanced table'
+        >
+          <EnhancedTableHead
+            classes={classes}
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={state.disponible.length}
+          />
+          <TableBody>
+            {stableSort(state.disponible, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                return (
+                  <TableRow
+                    hover
+                    onClick={(event) => handleClick(event, row.up)}
+                    tabIndex={-1}
+                    key={row}
+                  >
+                    <TableCell align='right'>{row.up}</TableCell>
+                    <TableCell align='right'>{row.ogasto}</TableCell>
+                    <TableCell align='right'>{row.rubro}</TableCell>
+                    <TableCell align='right'>
+                      $ {row.enero.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.febrero.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.marzo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.abril.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.mayo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.junio.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.julio.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.agosto.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.septiembre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.octubre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.noviembre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {row.diciembre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell align='right'>
+                      $ {(parseFloat(row.enero) + parseFloat(row.febrero) + parseFloat(row.marzo) +
+                          parseFloat(row.abril) + parseFloat(row.mayo) + parseFloat(row.junio) +
+                          parseFloat(row.julio) + parseFloat(row.agosto) + parseFloat(row.septiembre) +
+                          parseFloat(row.octubre) + parseFloat(row.noviembre) + parseFloat(row.diciembre)
+                        ).toLocaleString('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2})}
+                    </TableCell>
+                  </TableRow>
+                )
+              })
+            }
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, { label: 'Todo', value: -1 }]}
+          component='div'
+          count={state.disponible.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage='Filas por pagina:'
+          labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
+          ActionsComponent={TablePaginationActions}
         />
-        <TableBody>
-          {stableSort(rows, getComparator(order, orderBy))
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, index) => {
-              return (
-                <TableRow
-                  hover
-                  onClick={(event) => handleClick(event, row.up)}  
-                  tabIndex={-1}
-                  key={row}
-                >
-                  <TableCell align='right'>{row.up}</TableCell>
-                  <TableCell align='right'>{row.partida}</TableCell>
-                  <TableCell align='right'>{row.rubro}</TableCell>
-                  <TableCell align='right'>
-                    $ {row.ene.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.feb.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.mar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.abr.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.may.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.jun.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.jul.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.ago.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.sep.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.oct.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.nov.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {row.dic.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </TableCell>
-                  <TableCell align='right'>
-                    $ {(parseFloat(row.ene) + parseFloat(row.feb) + parseFloat(row.mar) + parseFloat(row.abr) + 
-                      parseFloat(row.may) + parseFloat(row.jun) + parseFloat(row.jul) + parseFloat(row.ago) + 
-                      parseFloat(row.sep) + parseFloat(row.oct) + parseFloat(row.nov) + parseFloat(row.dic)
-                      ).toLocaleString('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2})}
-                  </TableCell>
-                </TableRow>
-              )
-            })
-          }
-        </TableBody>
-      </Table> 
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25, { label: 'Todo', value: -1 }]}
-        component='div'
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        labelRowsPerPage='Filas por pagina:'
-        labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
-        ActionsComponent={TablePaginationActions}
-      />
-    </Paper>
+      </Paper>
+    </div>
   )
 }

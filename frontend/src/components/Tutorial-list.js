@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TutorialDataService from '../services/Tutorial'
 import { Link } from 'react-router-dom'
 
+
 export default class TutorialList extends Component {
   constructor (props) {
     super(props)

@@ -102,3 +102,13 @@ exports.create = (req, res) => {
     })
   })
 }
+
+exports.findAll = (req, res) => {
+  Presupuesto.findAll().then(data => {
+    res.send(data)
+  }).catch(err => {
+    res.status(500).send({
+      message: err.message || 'Algo ocurrio mientras se cargaba el presupuesto'
+    })
+  })
+}

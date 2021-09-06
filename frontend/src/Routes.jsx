@@ -3,43 +3,47 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 // Material ui
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import Drawer from '@material-ui/core/Drawer'
-import AppBar from '@material-ui/core/AppBar'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import IconButton from '@material-ui/core/IconButton'
-import Badge from '@material-ui/core/Badge'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
+import {
+  Drawer,
+  AppBar,
+  CssBaseline,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  IconButton,
+  Badge,
+  MenuItem,
+  Menu,
+  Avatar,
+  Collapse
+} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import Avatar from '@material-ui/core/Avatar'
 import {
   AccountBalance,
   MonetizationOn,
   FileCopy, Today,
   AccountBalanceWallet,
   Receipt,
-  Print,
   Inbox,
-  Note,
   ListAlt,
   Folder,
   PlaylistAddCheck,
   FormatListNumbered,
   AssignmentTurnedIn,
+  Assignment,
   PlaylistAdd,
   ChevronLeft,
   ChevronRight,
   More,
   Notifications,
   Mail,
-  AccountCircle
+  AccountCircle,
+  ExpandLess,
+  ExpandMore
 } from '@material-ui/icons'
 import perfil from './components/imgs/yo.jpeg'
 // Redux
@@ -164,6 +168,13 @@ const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(4),
     height: theme.spacing(4)
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular
+  },
+  nested: {
+    paddingLeft: theme.spacing(4)
   }
 }))
 
@@ -180,6 +191,7 @@ export default function Routes (props) {
   const [currentUser, setCurrentUser] = useState(undefined)
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
+  const [openCollapse, setOpenCollapse] = useState(false)
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
@@ -297,6 +309,10 @@ export default function Routes (props) {
     </Menu>
   )
 
+  const handleOpenOptions = () => {
+    setOpenCollapse(!openCollapse)
+  }
+
   return (
     <Router>
       <div className={classes.root}>
@@ -394,22 +410,31 @@ export default function Routes (props) {
                     <ListItemText primary='Archivos' />
                   </ListItem>
                 </Link>
-                <ListItem button>
-                  <ListItemIcon><Today /></ListItemIcon>
-                  <ListItemText primary='Registro' />
-                </ListItem>
-                <Link to='/disponible' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-                    <ListItemText primary='Disponible' />
-                  </ListItem>
-                </Link>
                 <Link to='/contrarecibo' className={classes.linkDecoration}>
                   <ListItem button>
                     <ListItemIcon><PlaylistAdd /></ListItemIcon>
                     <ListItemText primary='Contrarecibo' />
                   </ListItem>
                 </Link>
+                <ListItem button onClick={handleOpenOptions}>
+                  <ListItemIcon><Assignment /></ListItemIcon>
+                  <ListItemText primary='Consultas' />
+                  {openCollapse ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={openCollapse} timeout='auto' unmountExit>
+                  <List component='div' disablePadding>
+                    <ListItem button className={classes.nested}>
+                      <ListItemIcon><Today /></ListItemIcon>
+                      <ListItemText primary='Registro' />
+                    </ListItem>
+                    <Link to='/disponible' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                        <ListItemText primary='Disponible' />
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Collapse>
               </List>
           }
           {
@@ -421,33 +446,8 @@ export default function Routes (props) {
                     <ListItemText primary='Caja' />
                   </ListItem>
                 </Link>
-                <Link to='/arqueo' className={classes.linkDecoration}>
+                <Link to='/vale'>
                   <ListItem button>
-                    <ListItemIcon><Print /></ListItemIcon>
-                    <ListItemText primary='Arqueo' />
-                  </ListItem>
-                </Link>
-                <Link to='/cheques' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><Receipt /></ListItemIcon>
-                    <ListItemText primary='Cheques' />
-                  </ListItem>
-                </Link>  
-                <Link to='/contrarecibos' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><PlaylistAdd /></ListItemIcon>
-                    <ListItemText primary='Contrarecibo' />
-                  </ListItem>
-                </Link>  
-                <Link to='/vales' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><Note /></ListItemIcon>
-                    <ListItemText primary='Vale' />
-                  </ListItem>
-                </Link>
-                <Link to='/valeslist' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><ListAlt /></ListItemIcon>
                     <ListItemIcon><ListAlt /></ListItemIcon>
                     <ListItemText primary='Vales' />
                   </ListItem>
@@ -460,13 +460,12 @@ export default function Routes (props) {
                 </Link>
               </List>
           }
-          {
+          { 
             showValidacionBoard &&
               <List>
                 <Link to='/validacion' className={classes.linkDecoration}>
                   <ListItem button>
                     <ListItemIcon><AssignmentTurnedIn /></ListItemIcon>
-                    <ListItemText primary='Validación' />
                   </ListItem>
                 </Link>
               </List>

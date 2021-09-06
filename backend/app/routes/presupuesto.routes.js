@@ -6,5 +6,8 @@ module.exports = app => {
   // Crear un nuevo presupuesto
   router.post('/', presupuesto.create)
 
+  // Traer el presupuesto
+  router.get('/', presupuesto.findAll)
+
   app.use('/api/presupuesto', router)
 }

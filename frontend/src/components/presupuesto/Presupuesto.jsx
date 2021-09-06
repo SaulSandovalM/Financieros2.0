@@ -285,8 +285,7 @@ export default function Presupuesto (props) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
-              label='Año'
-              variant='outlined'
+              label='Año' 
               fullWidth
               value={state.year}
               onChange={handleChange}
@@ -297,7 +296,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Rm'
-              variant='outlined'
               fullWidth
               value={state.rm}
               onChange={handleChange}
@@ -308,7 +306,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Ur'
-              variant='outlined'
               fullWidth
               value={state.ur}
               onChange={handleChange}
@@ -319,7 +316,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Up'
-              variant='outlined'
               fullWidth
               value={state.up}
               onChange={handleChange}
@@ -330,7 +326,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Rubro'
-              variant='outlined'
               fullWidth
               value={state.rubro}
               onChange={handleChange}
@@ -341,7 +336,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Tg'
-              variant='outlined'
               fullWidth
               value={state.tg}
               onChange={handleChange}
@@ -352,7 +346,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Ogasto'
-              variant='outlined'
               fullWidth
               value={state.ogasto}
               onChange={handleChange}
@@ -363,7 +356,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='F'
-              variant='outlined'
               fullWidth
               value={state.f}
               onChange={handleChange}
@@ -374,7 +366,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Fu'
-              variant='outlined'
               fullWidth
               value={state.fu}
               onChange={handleChange}
@@ -385,7 +376,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Sf'
-              variant='outlined'
               fullWidth
               value={state.sf}
               onChange={handleChange}
@@ -396,7 +386,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Eje'
-              variant='outlined'
               fullWidth
               value={state.eje}
               onChange={handleChange}
@@ -407,7 +396,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='S'
-              variant='outlined'
               fullWidth
               value={state.s}
               onChange={handleChange}
@@ -418,7 +406,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Prog'
-              variant='outlined'
               fullWidth
               value={state.prog}
               onChange={handleChange}
@@ -429,7 +416,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Sp'
-              variant='outlined'
               fullWidth
               value={state.sp}
               onChange={handleChange}
@@ -440,7 +426,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Obj'
-              variant='outlined'
               fullWidth
               value={state.obj}
               onChange={handleChange}
@@ -451,7 +436,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Proy'
-              variant='outlined'
               fullWidth
               value={state.proy}
               onChange={handleChange}
@@ -462,7 +446,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Est'
-              variant='outlined'
               fullWidth
               value={state.est}
               onChange={handleChange}
@@ -473,7 +456,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Obra'
-              variant='outlined'
               fullWidth
               value={state.obra}
               onChange={handleChange}
@@ -484,7 +466,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Ben'
-              variant='outlined'
               fullWidth
               value={state.ben}
               onChange={handleChange}
@@ -495,7 +476,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Eg'
-              variant='outlined'
               fullWidth
               value={state.eg}
               onChange={handleChange}
@@ -506,7 +486,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Mi'
-              variant='outlined'
               fullWidth
               value={state.mi}
               onChange={handleChange}
@@ -517,7 +496,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Pr'
-              variant='outlined'
               fullWidth
               value={state.pr}
               onChange={handleChange}
@@ -528,7 +506,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Pd'
-              variant='outlined'
               fullWidth
               value={state.pd}
               onChange={handleChange}
@@ -539,7 +516,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Itrans'
-              variant='outlined'
               fullWidth
               value={state.itrans}
               onChange={handleChange}
@@ -550,7 +526,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Min'
-              variant='outlined'
               fullWidth
               value={state.min}
               onChange={handleChange}
@@ -561,7 +536,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Igest'
-              variant='outlined'
               fullWidth
               value={state.igest}
               onChange={handleChange}
@@ -572,7 +546,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='La'
-              variant='outlined'
               fullWidth
               value={state.la}
               onChange={handleChange}
@@ -583,7 +556,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Ods'
-              variant='outlined'
               fullWidth
               value={state.ods}
               onChange={handleChange}
@@ -594,7 +566,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Et'
-              variant='outlined'
               fullWidth
               value={state.et}
               onChange={handleChange}
@@ -605,7 +576,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Ff'
-              variant='outlined'
               fullWidth
               value={state.ff}
               onChange={handleChange}
@@ -616,7 +586,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Of'
-              variant='outlined'
               fullWidth
               value={state.of}
               onChange={handleChange}
@@ -627,7 +596,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Np'
-              variant='outlined'
               fullWidth
               value={state.np}
               onChange={handleChange}
@@ -638,7 +606,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={12} lg={12}>
             <TextField 
               label='Cpa'
-              variant='outlined'
               fullWidth
               value={cpa}
               name='cpa'
@@ -648,7 +615,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={12} lg={12}>
             <TextField 
               label='Nombre Proyecto'
-              variant='outlined'
               fullWidth
               value={state.nombreP}
               onChange={handleChange}
@@ -659,7 +625,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Enero'
-              variant='outlined'
               fullWidth
               required
               value={state.enero}
@@ -673,7 +638,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Febrero'
-              variant='outlined'
               fullWidth
               required
               value={state.febrero}
@@ -687,7 +651,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Marzo'
-              variant='outlined'
               fullWidth
               required
               value={state.marzo}
@@ -701,7 +664,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Abril'
-              variant='outlined'
               fullWidth
               required
               value={state.abril}
@@ -715,7 +677,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Mayo'
-              variant='outlined'
               fullWidth
               required
               value={state.mayo}
@@ -729,7 +690,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Junio'
-              variant='outlined'
               fullWidth
               required
               value={state.junio}
@@ -743,7 +703,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Julio'
-              variant='outlined'
               fullWidth
               required
               value={state.julio}
@@ -757,7 +716,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Agosto'
-              variant='outlined'
               fullWidth
               required
               value={state.agosto}
@@ -771,7 +729,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Septiembre'
-              variant='outlined'
               fullWidth
               required
               value={state.septiembre}
@@ -785,7 +742,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Octubre'
-              variant='outlined'
               fullWidth
               required
               value={state.octubre}
@@ -799,7 +755,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Noviembre'
-              variant='outlined'
               fullWidth
               required
               value={state.noviembre}
@@ -813,7 +768,6 @@ export default function Presupuesto (props) {
           <Grid item xs={12} md={6} lg={3}>
             <TextField 
               label='Diciembre'
-              variant='outlined'
               fullWidth
               required
               value={state.diciembre}
