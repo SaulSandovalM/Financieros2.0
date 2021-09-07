@@ -25,7 +25,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import {
   AccountBalance,
   MonetizationOn,
-  FileCopy, Today,
+  FileCopy, 
+  Today,
   AccountBalanceWallet,
   Receipt,
   Inbox,
@@ -35,6 +36,7 @@ import {
   FormatListNumbered,
   AssignmentTurnedIn,
   Assignment,
+  AssignmentInd,
   PlaylistAdd,
   ChevronLeft,
   ChevronRight,
@@ -61,6 +63,7 @@ import Revolvente from './components/presupuesto/Revolvente'
 import Archivos from './components/presupuesto/Archivos'
 import Disponible from './components/presupuesto/Disponible'
 import Contrarecibo from './components/presupuesto/Contrarecibo'
+import Informe from './components/presupuesto/Informe'
 //Tesoreria
 import Caja from './components/tesoreria/Caja'
 import Arqueo from './components/tesoreria/Arqueo'
@@ -433,6 +436,12 @@ export default function Routes (props) {
                         <ListItemText primary='Disponible' />
                       </ListItem>
                     </Link>
+                    <Link to='/informe' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><AssignmentInd /></ListItemIcon>
+                        <ListItemText primary='Informe' />
+                      </ListItem>
+                    </Link>
                   </List>
                 </Collapse>
               </List>
@@ -532,6 +541,7 @@ export default function Routes (props) {
             <Route exact path='/archivos' component={Archivos} />
             <Route exact path='/disponible' component={Disponible} />
             <Route exact path='/contrarecibo' component={Contrarecibo} />
+            <Route exact path='/informe' component={Informe} />
             {/* Tesoreria */}
             <Route exact path='/caja' component={Caja} />
             <Route exact path='/arqueo' component={Arqueo} />

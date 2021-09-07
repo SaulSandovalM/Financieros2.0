@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
   titleContainer: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '100%'
   }
 }))
 
@@ -51,12 +52,12 @@ export default function Contrarecibo () {
 
   return (
     <Grid container>
+      <div className={classes.titleContainer}>
+        <div className={classes.title}>Contrerecibo</div>
+        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
+      </div>
       <Grid item xs={12} md={12} lg={12}>
         <TableContainer component={Paper} className={fixedHeightPaper}>
-          <div className={classes.titleContainer}>
-            <div className={classes.title}>Contrerecibo</div>
-            <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
-          </div>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>

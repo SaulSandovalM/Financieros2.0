@@ -110,10 +110,15 @@ const useStyles2 = makeStyles({
   table: {
     minWidth: 500,
   },
+  title: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    marginBottom: '20px'
+  }
 })
 
 export default function Archivos () {
-  const classes = useStyles2();
+  const classes = useStyles2()
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
@@ -127,58 +132,61 @@ export default function Archivos () {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Tipo de Movimiento</TableCell>
-            <TableCell align='right'>Oficio Solicitud</TableCell>
-            <TableCell align='right'>Oficio Autorización</TableCell>
-            <TableCell align='right'>Excel</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align='right'>
-                {row.calories}
-              </TableCell>
-              <TableCell align='right'>
-                {row.fat}
-              </TableCell>
-              <TableCell align='right'>
-                {row.excel}
-              </TableCell>
+    <div>
+      <div className={classes.title}>Archivos</div>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Tipo de Movimiento</TableCell>
+              <TableCell align='right'>Oficio Solicitud</TableCell>
+              <TableCell align='right'>Oficio Autorización</TableCell>
+              <TableCell align='right'>Excel</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'Todo', value: -1 }]}
-              colSpan={4}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true,
-              }}
-              labelRowsPerPage={'Filas por pagina:'}
-              labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : rows
+            ).map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align='right'>
+                  {row.calories}
+                </TableCell>
+                <TableCell align='right'>
+                  {row.fat}
+                </TableCell>
+                <TableCell align='right'>
+                  {row.excel}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: 'Todo', value: -1 }]}
+                colSpan={4}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { 'aria-label': 'rows per page' },
+                  native: true,
+                }}
+                labelRowsPerPage={'Filas por pagina:'}
+                labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </div>
   )
 }
