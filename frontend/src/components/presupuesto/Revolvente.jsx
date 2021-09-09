@@ -9,6 +9,7 @@ import {
   MenuItem, 
   Button 
 } from '@material-ui/core'
+import { CloudUpload } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
@@ -52,6 +53,14 @@ const useStyles = makeStyles((theme) => ({
   btnBack: {
     background: '#07131f',
     color: 'white'
+  },
+  button: {
+    margin: theme.spacing(1)
+  },
+  titleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%'
   }
 }))
 
@@ -122,7 +131,10 @@ export default function Revolvente () {
 
   return (
     <form>
-      <div className={classes.title}>Creación de Fondo Revolvente</div>
+      <div className={classes.titleContainer}>
+        <div className={classes.title}>Creación de fondo revolvente</div>
+        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
+      </div>
       <Paper className={fixedHeightPaper}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} lg={3}>

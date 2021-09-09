@@ -138,6 +138,18 @@ export default function Disponible () {
                 components={{
                   Toolbar: CustomToolbar
                 }}
+                localeText={{
+                  toolbarExport: 'Exportar',
+                  toolbarExportLabel: 'Exportar',
+                  toolbarExportCSV: 'Descargar como CSV',
+                  columnMenuShowColumns: 'Ver columnas',
+                  columnMenuFilter: 'Filtrar', 
+                  columnMenuHideColumn: 'Ocultar',
+                  columnMenuUnsort: 'Desordenar',
+                  columnMenuSortAsc: 'Ordenar Arriba',
+                  columnMenuSortDesc: 'Ordenar Abajo',
+                  
+                }}
               />
             </div>
           </div>

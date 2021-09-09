@@ -13,6 +13,7 @@ import clsx from 'clsx'
 import PresupuestoDataService from '../../services/Presupuesto'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
+import { CloudUpload } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +38,14 @@ const useStyles = makeStyles((theme) => ({
   btnBack: {
     background: '#07131f',
     color: 'white'
+  },
+  button: {
+    margin: theme.spacing(1)
+  },
+  titleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%'
   }
 }))
 
@@ -267,7 +276,10 @@ export default function Presupuesto (props) {
 
   return (
     <div>
-      <div className={classes.title}>Presupuesto</div>
+      <div className={classes.titleContainer}>
+        <div className={classes.title}>Presupuesto</div>
+        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
+      </div>
       <Snackbar 
         open={open} 
         autoHideDuration={5000} 
