@@ -3,11 +3,8 @@ import PropTypes from 'prop-types'
 // Material ui
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import {
-  Table,
-  TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
   TableSortLabel,
   Typography,
@@ -21,9 +18,9 @@ import {
   KeyboardArrowRight,
   LastPage
 } from '@material-ui/icons'
-import NumberFormat from 'react-number-format'
 // Servicios
 import PresupuestoDataService from '../../services/Presupuesto'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -31,90 +28,6 @@ const useStyles1 = makeStyles((theme) => ({
     marginLeft: theme.spacing(2.5)
   }
 }))
-
-function TablePaginationActions (props) {
-  const classes = useStyles1()
-  const theme = useTheme()
-  const { count, page, rowsPerPage, onPageChange } = props
-
-  const handleFirstPageButtonClick = (event) => {
-    onPageChange(event, 0)
-  }
-
-  const handleBackButtonClick = (event) => {
-    onPageChange(event, page - 1)
-  }
-
-  const handleNextButtonClick = (event) => {
-    onPageChange(event, page + 1)
-  }
-
-  const handleLastPageButtonClick = (event) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1))
-  }
-
-  return (
-    <div className={classes.root}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label='first page'
-      >
-        {theme.direction === 'rtl' ? <LastPage /> : <FirstPage />}
-      </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label='previous page'>
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='next page'
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='last page'
-      >
-        {theme.direction === 'rtl' ? <FirstPage /> : <LastPage />}
-      </IconButton>
-    </div>
-  )
-}
-
-TablePaginationActions.propTypes = {
-  count: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired
-}
-
-function descendingComparator (a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
-  return 0
-}
-
-function getComparator (order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
-}
-
-function stableSort (array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index])
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0])
-    if (order !== 0) return order
-    return a[1] - b[1]
-  })
-  return stabilizedThis.map((el) => el[0])
-}
 
 const headCells = [
   { id: 'up', numeric: false, disablePadding: false, label: 'Up' },
@@ -206,80 +119,85 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function NumberFormatCustom (props) {
-  const { inputRef, onChange, ...other } = props
-
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value
-          }
-        })
-      }}
-      thousandSeparator
-      isNumericString
-      prefix='$'
-    />
-  )
-}
-
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
-}
+const columns: GridColDef[] = [
+  { field: 'up', headerName: 'Up', width: 100 },
+  { field: 'ogasto', headerName: 'Partida' },
+  { field: 'rubro', headerName: 'Rubro', width: 120 },
+  { field: 'enero', headerName: 'Enero', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'febrero', headerName: 'Febrero', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'marzo', headerName: 'Marzo', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'abril', headerName: 'Abril', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'mayo', headerName: 'Mayo', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'junio', headerName: 'Junio', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'julio', headerName: 'Julio', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'agosto', headerName: 'Agosto', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'septiembre', headerName: 'Septiembre', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'octubre', headerName: 'Octubre', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'noviembre', headerName: 'Noviembre', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'diciembre', headerName: 'Diciembre', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }},
+  { field: 'total', headerName: 'Total', width: 120, type: 'number', valueFormatter: (params) => {
+    const valueFormatter = 
+      Number(params.value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `$ ${valueFormatter}`
+  }}
+]
 
 export default function Disponible () {
   const classes = useStyles()
-  const [order, setOrder] = useState('asc')
-  const [orderBy, setOrderBy] = useState('up')
-  const [selected, setSelected] = useState([])
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
   const [state, setState] = useState({
     disponible: [],
     currentDisponible: null,
     currentIndex: -1,
     search: ''
   })
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
-    setOrderBy(property)
-  }
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name)
-    let newSelected = []
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      )
-    }
-    setSelected(newSelected)
-  }
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage)
-  }
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
 
   useEffect(() => {
     // Actualiza la API
@@ -298,96 +216,27 @@ export default function Disponible () {
       <Typography className={classes.title} variant='h6' id='tableTitle' component='div'>
         Disponible
       </Typography>
-      <Paper className={classes.paper}>
-        <Table
-          className={classes.table}
-          aria-labelledby='tableTitle'
-          aria-label='enhanced table'
-        >
-          <EnhancedTableHead
-            classes={classes}
-            numSelected={selected.length}
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            rowCount={state.disponible.length}
-          />
-          <TableBody>
-            {stableSort(state.disponible, getComparator(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.up)}
-                    tabIndex={-1}
-                    key={row}
-                  >
-                    <TableCell align='right'>{row.up}</TableCell>
-                    <TableCell align='right'>{row.ogasto}</TableCell>
-                    <TableCell align='right'>{row.rubro}</TableCell>
-                    <TableCell align='right'>
-                      $ {row.enero.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.febrero.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.marzo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.abril.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.mayo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.junio.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.julio.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.agosto.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.septiembre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.octubre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.noviembre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {row.diciembre.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </TableCell>
-                    <TableCell align='right'>
-                      $ {(parseFloat(row.enero) + parseFloat(row.febrero) + parseFloat(row.marzo) +
-                          parseFloat(row.abril) + parseFloat(row.mayo) + parseFloat(row.junio) +
-                          parseFloat(row.julio) + parseFloat(row.agosto) + parseFloat(row.septiembre) +
-                          parseFloat(row.octubre) + parseFloat(row.noviembre) + parseFloat(row.diciembre)
-                        ).toLocaleString('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2})}
-                    </TableCell>
-                  </TableRow>
-                )
-              })
-            }
-          </TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25, { label: 'Todo', value: -1 }]}
-          component='div'
-          count={state.disponible.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage='Filas por pagina:'
-          labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
-          ActionsComponent={TablePaginationActions}
-        />
+
+      {/* Nueva tabla */}
+      <Paper>
+        <div style={{ width: '100%' }}>
+          <div style={{ display: 'flex', height: '100%' }}>
+            <div style={{ flexGrow: 1 }}>
+              <DataGrid 
+                rows={state.disponible} 
+                columns={columns}
+                pagination
+                pageSize={20}
+                rowsPerPageOptions={[20]}
+                autoHeight 
+                autoPageSize
+                disableSelectionOnClick
+              />
+            </div>
+          </div>
+        </div>
       </Paper>
+
     </div>
   )
 }
