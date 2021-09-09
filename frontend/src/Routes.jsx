@@ -426,10 +426,6 @@ export default function Routes (props) {
                 </ListItem>
                 <Collapse in={openCollapse} timeout='auto' unmountExit>
                   <List component='div' disablePadding>
-                    <ListItem button className={classes.nested}>
-                      <ListItemIcon><Today /></ListItemIcon>
-                      <ListItemText primary='Registro' />
-                    </ListItem>
                     <Link to='/disponible' className={classes.linkDecoration}>
                       <ListItem button className={classes.nested}>
                         <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
