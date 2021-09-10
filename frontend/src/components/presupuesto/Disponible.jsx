@@ -148,7 +148,21 @@ export default function Disponible () {
                   columnMenuUnsort: 'Desordenar',
                   columnMenuSortAsc: 'Ordenar Arriba',
                   columnMenuSortDesc: 'Ordenar Abajo',
-                  
+                  filterPanelOperators: 'Operaciones',
+                  filterPanelColumns: 'Columnas',
+                  filterPanelInputLabel: 'Valor',
+                  filterPanelInputPlaceholder: 'Valor a filtrar',
+                  filterPanelDeleteIconLabel: 'Borrar',
+                  filterOperatorContains: 'contiene',
+                  filterOperatorEquals: 'igual',
+                  filterOperatorStartsWith: 'empieza con',
+                  filterOperatorEndsWith: 'termina con',
+                  filterOperatorIsEmpty: 'esta vacio',
+                  filterOperatorIsNotEmpty: 'no esta vacio',
+                  columnsPanelTextFieldLabel: 'Buscar columna',
+                  columnsPanelTextFieldPlaceholder: 'Titulo',
+                  columnsPanelShowAllButton: 'Ver todos',
+                  columnsPanelHideAllButton: 'Ocultar todos'
                 }}
               />
             </div>

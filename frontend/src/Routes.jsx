@@ -45,7 +45,8 @@ import {
   Mail,
   AccountCircle,
   ExpandLess,
-  ExpandMore
+  ExpandMore,
+  LocalAtm
 } from '@material-ui/icons'
 import perfil from './components/imgs/yo.jpeg'
 // Redux
@@ -64,6 +65,7 @@ import Archivos from './components/presupuesto/Archivos'
 import Disponible from './components/presupuesto/Disponible'
 import Contrarecibo from './components/presupuesto/Contrarecibo'
 import Informe from './components/presupuesto/Informe'
+import Transferencia from './components/presupuesto/Transferencia'
 //Tesoreria
 import Caja from './components/tesoreria/Caja'
 import Arqueo from './components/tesoreria/Arqueo'
@@ -395,12 +397,33 @@ export default function Routes (props) {
           {
             showPresupuestoBoard &&
               <List>
-                <Link to='/presupuesto' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><AccountBalance /></ListItemIcon>
-                    <ListItemText primary='Presupuesto' />
-                  </ListItem>
-                </Link>
+                <ListItem button onClick={handleOpenOptions}>
+                  <ListItemIcon><AccountBalance /></ListItemIcon>
+                  <ListItemText primary='Presupuesto' />
+                  { openCollapse ? <ExpandLess /> : <ExpandMore /> }
+                </ListItem>
+                <Collapse in={openCollapse} timeout='auto' unmountExit>
+                  <List component='div' disablePadding>
+                    <Link to='/presupuesto' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                        <ListItemText primary='Inicial' />
+                      </ListItem>
+                    </Link>
+                    <Link to='/ampliacion' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><AssignmentInd /></ListItemIcon>
+                        <ListItemText primary='Ampliacion' />
+                      </ListItem>
+                    </Link>
+                    <Link to='/trasferencia' className={classes.linkDecoration}>
+                       <ListItem button className={classes.nested}>
+                        <ListItemIcon><LocalAtm /></ListItemIcon>
+                        <ListItemText primary='Transferencia' />
+                      </ListItem>
+                    </Link>
+                  </List> 
+                </Collapse>
                 <Link to='/revolvente' className={classes.linkDecoration}>
                   <ListItem button>
                     <ListItemIcon><MonetizationOn /></ListItemIcon>
@@ -419,27 +442,18 @@ export default function Routes (props) {
                     <ListItemText primary='Contrarecibo' />
                   </ListItem>
                 </Link>
-                <ListItem button onClick={handleOpenOptions}>
-                  <ListItemIcon><Assignment /></ListItemIcon>
-                  <ListItemText primary='Consultas' />
-                  {openCollapse ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={openCollapse} timeout='auto' unmountExit>
-                  <List component='div' disablePadding>
-                    <Link to='/disponible' className={classes.linkDecoration}>
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-                        <ListItemText primary='Disponible' />
-                      </ListItem>
-                    </Link>
-                    <Link to='/informe' className={classes.linkDecoration}>
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon><AssignmentInd /></ListItemIcon>
-                        <ListItemText primary='Informe' />
-                      </ListItem>
-                    </Link>
-                  </List>
-                </Collapse>
+                <Link to='/disponible' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                    <ListItemText primary='Disponible' />
+                  </ListItem>
+                </Link>
+                <Link to='/informe' className={classes.linkDecoration}>
+                  <ListItem button>
+                    <ListItemIcon><AssignmentInd /></ListItemIcon>
+                    <ListItemText primary='Informe' />
+                  </ListItem>
+                </Link>
               </List>
           }
           {
@@ -538,6 +552,7 @@ export default function Routes (props) {
             <Route exact path='/disponible' component={Disponible} />
             <Route exact path='/contrarecibo' component={Contrarecibo} />
             <Route exact path='/informe' component={Informe} />
+            <Route exact path='/transferencia' component={Transferencia} />
             {/* Tesoreria */}
             <Route exact path='/caja' component={Caja} />
             <Route exact path='/arqueo' component={Arqueo} />
