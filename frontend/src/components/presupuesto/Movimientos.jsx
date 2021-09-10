@@ -76,7 +76,7 @@ export default function Movimientos () {
   return (
     <div>
       <div className={classes.titleContainer}>
-        <div className={classes.title}>Transferencia</div>
+        <div className={classes.title}>Movimientos</div>
         <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Oficio Autorización</Button>
       </div>
       <Paper className={fixedHeightPaper}>

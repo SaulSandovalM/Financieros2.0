@@ -35,7 +35,6 @@ import {
   PlaylistAddCheck,
   FormatListNumbered,
   AssignmentTurnedIn,
-  Assignment,
   AssignmentInd,
   PlaylistAdd,
   ChevronLeft,
@@ -46,7 +45,9 @@ import {
   AccountCircle,
   ExpandLess,
   ExpandMore,
-  LocalAtm
+  LocalAtm,
+  AttachMoney,
+  ImportExport
 } from '@material-ui/icons'
 import perfil from './components/imgs/yo.jpeg'
 // Redux
@@ -66,6 +67,7 @@ import Disponible from './components/presupuesto/Disponible'
 import Contrarecibo from './components/presupuesto/Contrarecibo'
 import Informe from './components/presupuesto/Informe'
 import Transferencia from './components/presupuesto/Transferencia'
+import Movimientos from './components/presupuesto/Movimientos'
 //Tesoreria
 import Caja from './components/tesoreria/Caja'
 import Arqueo from './components/tesoreria/Arqueo'
@@ -406,14 +408,14 @@ export default function Routes (props) {
                   <List component='div' disablePadding>
                     <Link to='/presupuesto' className={classes.linkDecoration}>
                       <ListItem button className={classes.nested}>
-                        <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                        <ListItemIcon><AttachMoney /></ListItemIcon>
                         <ListItemText primary='Inicial' />
                       </ListItem>
                     </Link>
-                    <Link to='/ampliacion' className={classes.linkDecoration}>
+                    <Link to='/movimientos' className={classes.linkDecoration}>
                       <ListItem button className={classes.nested}>
-                        <ListItemIcon><AssignmentInd /></ListItemIcon>
-                        <ListItemText primary='Ampliacion' />
+                        <ListItemIcon><ImportExport /></ListItemIcon>
+                        <ListItemText primary='Movimientos' />
                       </ListItem>
                     </Link>
                     <Link to='/trasferencia' className={classes.linkDecoration}>
@@ -553,6 +555,7 @@ export default function Routes (props) {
             <Route exact path='/contrarecibo' component={Contrarecibo} />
             <Route exact path='/informe' component={Informe} />
             <Route exact path='/transferencia' component={Transferencia} />
+            <Route exact path='/movimientos' component={Movimientos} />
             {/* Tesoreria */}
             <Route exact path='/caja' component={Caja} />
             <Route exact path='/arqueo' component={Arqueo} />
