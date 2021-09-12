@@ -1,32 +1,65 @@
 import React, { useState } from 'react'
-import { CloudUpload } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button, Grid, Paper, TextField, MenuItem, FormControl, Select, InputLabel } from '@material-ui/core'
-import clsx from 'clsx'
+import {
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  TextField,
+  Grid,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select,
+  List,
+  ListItem,
+  ListItemText
+} from '@material-ui/core'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
-  titleContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%'
-  },
-  title: {
-    fontSize: '18px',
-    fontWeight: 'bold'
-  },
-  button: {
-    margin: theme.spacing(1)
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    }
   },
   paper: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column'
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(0),
+      marginBottom: theme.spacing(0),
+      padding: theme.spacing(3),
+    }
   },
-  fixedHeight: {
-    height: 'auto'
+  stepper: {
+    padding: theme.spacing(3, 0, 5),
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1)
+  },
+  listItem: {
+    padding: theme.spacing(1, 0),
+  },
+  total: {
+    fontWeight: 700,
+  },
+  title: {
+    marginTop: theme.spacing(2),
   }
 }))
 
@@ -58,52 +91,57 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired
 }
 
-export default function Movimientos () {
-  const classes = useStyles()
-  const [state, setState] = useState({
-    mes: ''
-  })
-
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
-
-  const handleChange = (event) => {
-    const value = event.target.value
-    setState({
-      ...state, [event.target.name]: value
-    })
-  }
-
+function One () {
   return (
     <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.title}>Transferencia</div>
-        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Oficio Autorización</Button>
-      </div>
-      <Paper className={fixedHeightPaper}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3} lg={4}>
-            <TextField 
-              label='Oficio de autorización'
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={4}>
-            <TextField 
-              label='Cantidad'
-              fullWidth
-              InputProps={{
-                inputComponent: NumberFormatCustom
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={4}>
-            <FormControl fullWidth>
-              <InputLabel>Mes</InputLabel>
+      <Typography variant="h6" gutterBottom>
+        Partida Inicial
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Up'
+            fullWidth
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Partida'
+            fullWidth
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Rubro'
+            fullWidth
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Cantidad'
+            fullWidth
+            InputProps={{
+              inputComponent: NumberFormatCustom
+            }}
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Oficio de autorización'
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <FormControl fullWidth>
+            <InputLabel>Mes</InputLabel>
               <Select
                 label='Mes'
-                value={state.mes}
                 name='mes'
-                onChange={handleChange}
               >
                 <MenuItem vale='Enero'>Enero</MenuItem>
                 <MenuItem value='Febero'>Febrero</MenuItem>
@@ -119,27 +157,215 @@ export default function Movimientos () {
                 <MenuItem value='Diciembre'>Diciembre</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={4}>
-            <TextField 
-              label='Up'
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={4}>
-            <TextField 
-              label='Partida'
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={4}>
-            <TextField 
-              label='Rubro'
-              fullWidth
-            />
+        </Grid>
+      </Grid>
+    </div> 
+  )
+}
+
+function Two () {
+  return (
+    <div>
+      <Typography variant='h6' gutterBottom>
+        Partida Destino
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Up'
+            fullWidth
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Partida'
+            fullWidth
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Rubro'
+            fullWidth
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Cantidad'
+            fullWidth
+            InputProps={{
+              inputComponent: NumberFormatCustom
+            }}
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TextField 
+            label='Oficio de autorización'
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <FormControl fullWidth>
+            <InputLabel>Mes</InputLabel>
+              <Select
+                label='Mes'
+                name='mes'
+              >
+                <MenuItem vale='Enero'>Enero</MenuItem>
+                <MenuItem value='Febero'>Febrero</MenuItem>
+                <MenuItem value='Marzo'>Marzo</MenuItem>
+                <MenuItem value='Abril'>Abril</MenuItem>
+                <MenuItem value='Mayo'>Mayo</MenuItem>
+                <MenuItem value='Junio'>Junio</MenuItem>
+                <MenuItem value='Julio'>Julio</MenuItem>
+                <MenuItem value='Agosto'>Agosto</MenuItem>
+                <MenuItem value='Septiembre'>Septiembre</MenuItem>
+                <MenuItem value='Octubre'>Octubre</MenuItem>
+                <MenuItem value='Noviembre'>Noviembre</MenuItem>
+                <MenuItem value='Diciembre'>Diciembre</MenuItem>
+              </Select>
+            </FormControl>
+        </Grid>
+      </Grid>
+    </div> 
+  )
+}
+
+function Three () {
+  const classes = useStyles()
+  return (
+    <div>
+     <Typography variant='h6' gutterBottom>
+        Resumen de Transferencia
+      </Typography>
+      <List disablePadding>
+        <ListItem className={classes.listItem} key=''>
+          <ListItemText primary='Partida 1' secondary='Up 1' />
+          <Typography variant='body2'>- $100.00</Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemText primary='Total' />
+          <Typography variant='subtitle1' className={classes.total}>
+            $34.06
+          </Typography>
+        </ListItem>
+      </List>
+      <List disablePadding>
+        <ListItem className={classes.listItem} key=''>
+          <ListItemText primary='Partida 2' secondary='Up 2' />
+          <Typography variant='body2'>+ $100.00</Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemText primary='Total' />
+          <Typography variant='subtitle1' className={classes.total}>
+            $34.06
+          </Typography>
+        </ListItem>
+      </List>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Typography variant='h6' gutterBottom className={classes.title}>
+            Shipping
+          </Typography>
+          <Typography gutterBottom>Usuario</Typography>
+          <Typography gutterBottom>Escriba su texto</Typography>
+        </Grid>
+        <Grid item container direction='column' xs={12} sm={6}>
+          <Typography variant='h6' gutterBottom className={classes.title}>
+            Payment details
+          </Typography>
+          <Grid container>
+            <React.Fragment key=''>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Usuario</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Detalles</Typography>
+              </Grid>
+            </React.Fragment>
           </Grid>
         </Grid>
-      </Paper>
+      </Grid> 
     </div>
   )
 }
+
+const steps = ['Partida inicial', 'Partida destino', 'Resumen de transferencia']
+
+function getStepContent (step) {
+  switch (step) {
+    case 0:
+      return <One />
+    case 1: 
+      return <Two />
+    case 2: 
+      return <Three />
+    default: 
+      throw new Error('Paso desconocido')
+  }
+}
+
+export default function Transferencia () {
+  const classes = useStyles()
+  const [activeStep, setActiveStep] = useState(0)
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1)
+  }
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1)
+  }
+
+  return (
+    <div className={classes.layout}>
+      <Paper className={classes.paper}>
+        <Typography component='h1' variant='h4' align='center'>
+          Transferencia
+        </Typography>
+        <Stepper activeStep={activeStep} className={classes.stepper}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <React.Fragment>
+          {activeStep === steps.length ? (
+            <React.Fragment>
+              <Typography variant='h5' gutterBottom>
+                Thank you for your order.
+              </Typography>
+              <Typography variant='subtitle1'>
+                Se ha realizado la transferencia de manera axitosa.
+              </Typography>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {getStepContent(activeStep)}
+              <div className={classes.buttons}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Atras
+                  </Button>
+                )}
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleNext}
+                  className={classes.button}
+                >
+                  {activeStep === steps.length - 1 ? 'Realizar Transferencia' : 'Siguiente'}
+                </Button>
+              </div>
+            </React.Fragment>
+          )}
+        </React.Fragment>
+      </Paper>
+    </div>
+  )
+} 

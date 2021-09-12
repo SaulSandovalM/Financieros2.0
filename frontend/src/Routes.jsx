@@ -418,7 +418,7 @@ export default function Routes (props) {
                         <ListItemText primary='Movimientos' />
                       </ListItem>
                     </Link>
-                    <Link to='/trasferencia' className={classes.linkDecoration}>
+                    <Link to='/transferencia' className={classes.linkDecoration}>
                        <ListItem button className={classes.nested}>
                         <ListItemIcon><LocalAtm /></ListItemIcon>
                         <ListItemText primary='Transferencia' />
