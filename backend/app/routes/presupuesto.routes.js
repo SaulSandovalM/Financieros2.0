@@ -9,5 +9,11 @@ module.exports = app => {
   // Traer el presupuesto
   router.get('/', presupuesto.findAll)
 
+  // Actualizar el presupuesto
+  router.put('/:id', presupuesto.update)
+
+  // Traer partida con id
+  router.get('/:id', presupuesto.findOne)
+
   app.use('/api/presupuesto', router)
 }

@@ -47,7 +47,10 @@ import {
   ExpandMore,
   LocalAtm,
   AttachMoney,
-  ImportExport
+  ImportExport,
+  FormatListBulleted,
+  History,
+  Update
 } from '@material-ui/icons'
 import perfil from './components/imgs/yo.jpeg'
 // Redux
@@ -61,6 +64,7 @@ import BoardManager from './components/comun/BoardManager'
 import BoardDirector from './components/comun/BoardDirector'
 // Presupuesto
 import Presupuesto from './components/presupuesto/Presupuesto'
+import EditarPresupuesto from './components/presupuesto/EditarPresupuesto'
 import Revolvente from './components/presupuesto/Revolvente'
 import Archivos from './components/presupuesto/Archivos'
 import Disponible from './components/presupuesto/Disponible'
@@ -68,6 +72,7 @@ import Contrarecibo from './components/presupuesto/Contrarecibo'
 import Informe from './components/presupuesto/Informe'
 import Transferencia from './components/presupuesto/Transferencia'
 import Movimientos from './components/presupuesto/Movimientos'
+import Actualizar from './components/presupuesto/Actualizar'
 //Tesoreria
 import Caja from './components/tesoreria/Caja'
 import Arqueo from './components/tesoreria/Arqueo'
@@ -199,6 +204,7 @@ export default function Routes (props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
   const [openCollapse, setOpenCollapse] = useState(false)
+  const [openCollapse2, setOpenCollapse2] = useState(false)
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
@@ -320,6 +326,10 @@ export default function Routes (props) {
     setOpenCollapse(!openCollapse)
   }
 
+  const handleOpenOptions2 = () => {
+    setOpenCollapse2(!openCollapse2)
+  }
+
   return (
     <Router>
       <div className={classes.root}>
@@ -412,6 +422,12 @@ export default function Routes (props) {
                         <ListItemText primary='Inicial' />
                       </ListItem>
                     </Link>
+                    <Link to='/actualizar' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><Update /></ListItemIcon>
+                        <ListItemText primary='Actualizar' />
+                      </ListItem>
+                    </Link>
                     <Link to='/movimientos' className={classes.linkDecoration}>
                       <ListItem button className={classes.nested}>
                         <ListItemIcon><ImportExport /></ListItemIcon>
@@ -444,18 +460,33 @@ export default function Routes (props) {
                     <ListItemText primary='Contrarecibo' />
                   </ListItem>
                 </Link>
-                <Link to='/disponible' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
-                    <ListItemText primary='Disponible' />
-                  </ListItem>
-                </Link>
-                <Link to='/informe' className={classes.linkDecoration}>
-                  <ListItem button>
-                    <ListItemIcon><AssignmentInd /></ListItemIcon>
-                    <ListItemText primary='Informe' />
-                  </ListItem>
-                </Link>
+                <ListItem button onClick={handleOpenOptions2}>
+                 <ListItemIcon><FormatListBulleted /></ListItemIcon>
+                  <ListItemText primary='Consultas' />
+                  { openCollapse2 ? <ExpandLess /> : <ExpandMore /> }
+                </ListItem>
+                <Collapse in={openCollapse2} timeout='auto' unmountExit>
+                  <List component='div' disablePadding>
+                    <Link to='/disponible' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><AccountBalanceWallet /></ListItemIcon>
+                        <ListItemText primary='Disponible' />
+                      </ListItem>
+                    </Link>
+                    <Link to='/informe' className={classes.linkDecoration}>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon><AssignmentInd  /></ListItemIcon>
+                        <ListItemText primary='Informe' />
+                      </ListItem>
+                    </Link>
+                    <Link to='' className={classes.linkDecoration}>
+                       <ListItem button className={classes.nested}>
+                        <ListItemIcon><History /></ListItemIcon>
+                        <ListItemText primary='Historial' />
+                      </ListItem>
+                    </Link>
+                  </List> 
+                </Collapse>
               </List>
           }
           {
@@ -549,6 +580,7 @@ export default function Routes (props) {
             <Route exact path='/' component={Login} />
             {/* Presupuesto */}
             <Route exact path='/presupuesto' component={Presupuesto} />
+            <Route exact path='/presupuesto/:id' component={EditarPresupuesto} />
             <Route exact path='/revolvente' component={Revolvente} />
             <Route exact path='/archivos' component={Archivos} />
             <Route exact path='/disponible' component={Disponible} />
@@ -556,6 +588,7 @@ export default function Routes (props) {
             <Route exact path='/informe' component={Informe} />
             <Route exact path='/transferencia' component={Transferencia} />
             <Route exact path='/movimientos' component={Movimientos} />
+            <Route exact path='/actualizar' component={Actualizar} />
             {/* Tesoreria */}
             <Route exact path='/caja' component={Caja} />
             <Route exact path='/arqueo' component={Arqueo} />

@@ -103,12 +103,48 @@ exports.create = (req, res) => {
   })
 }
 
+// Recuperar todos los datos de la base
 exports.findAll = (req, res) => {
   Presupuesto.findAll().then(data => {
     res.send(data)
   }).catch(err => {
     res.status(500).send({
       message: err.message || 'Algo ocurrio mientras se cargaba el presupuesto'
+    })
+  })
+}
+
+// Actualizar
+exports.update = (req, res) => {
+  const id = req.params.id
+
+  Presupuesto.update(req.body, { where: { id: id } }).then(num => {
+    if (num == 1) {
+      res.send({
+        message: 'El presupuesto ha sido actualizado exitosamente.'
+      })
+    } else {
+      res.send({
+        message: `No se actualizo el presupuesto con id = ${id}. Quiza mp se encuentra o el req.body esta vacio!`
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: 'Error al actualizar el id = ' + id
+    })
+  })
+}
+
+// Encontrar partida por id
+exports.findOne = (req, res) => {
+  const id = req.params.id
+
+  Presupuesto.findByPk(id).then(data => {
+    res.send(data)
+  }).catch(err => {
+    res.status(500).send({
+      message: 'Error al traer la partida con id = ' + id
     })
   })
 }

@@ -8,6 +8,14 @@ class PresupuestoDataService {
   getAll () {
     return http.get('/presupuesto')
   }
+
+  update (id, data) {
+    return http.put(`/presupuesto/${id}`, data)
+  }
+
+  get (id) {
+    return http.get(`/presupuesto/${id}`)
+  }
 }
 
 export default new PresupuestoDataService()
