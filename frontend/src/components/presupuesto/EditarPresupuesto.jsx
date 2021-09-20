@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+// Material ui
 import { Button, Grid, Paper, TextField, Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
@@ -6,7 +7,6 @@ import clsx from 'clsx'
 import PresupuestoDataService from '../../services/Presupuesto'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
-import { CloudUpload } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -123,7 +123,6 @@ export default function EditarPresupuesto (props) {
     <div>
       <div className={classes.titleContainer}>
         <div className={classes.title}>Presupuesto</div>
-        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
       </div>
       <Snackbar 
         open={open} 
@@ -148,6 +147,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='year'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -158,6 +158,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='rm'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -168,6 +169,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='ur'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -178,6 +180,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='up'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -188,6 +191,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='rubro'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -198,6 +202,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='tg'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -208,6 +213,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='ogasto'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -218,6 +224,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='f'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -228,6 +235,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='fu'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -238,6 +246,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='sf'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -248,6 +257,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='eje'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -258,6 +268,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='s'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -268,6 +279,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='prog'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -278,6 +290,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='sp'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -288,6 +301,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='obj'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -298,6 +312,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='proy'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -308,6 +323,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='est'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -318,6 +334,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='obra'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -328,6 +345,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='ben'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -338,6 +356,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='eg'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -348,6 +367,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='mi'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -358,6 +378,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='pr'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -368,6 +389,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='pd'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -378,6 +400,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='itrans'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -388,6 +411,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='min'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -398,6 +422,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='igest'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -408,6 +433,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='la'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -418,6 +444,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='ods'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -428,6 +455,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='et'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -438,6 +466,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='ff'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -448,6 +477,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='of'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -458,6 +488,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='np'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
@@ -467,6 +498,7 @@ export default function EditarPresupuesto (props) {
               value={currentPartida.cpa}
               name='cpa'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
@@ -476,6 +508,17 @@ export default function EditarPresupuesto (props) {
               value={currentPartida.nombreP}
               onChange={handleChange}
               name='nombreP'
+              required
+              disabled={open}
+            />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+            <TextField 
+              label='Oficio de autorización'
+              fullWidth
+              value={currentPartida.oficio}
+              onChange={handleChange}
+              name='oficio'
               required
             />
           </Grid>
@@ -490,6 +533,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -503,6 +547,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -516,6 +561,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -529,6 +575,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -542,6 +589,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -555,6 +603,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -568,6 +617,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -581,6 +631,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -594,6 +645,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -607,6 +659,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -620,6 +673,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -633,6 +687,7 @@ export default function EditarPresupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>

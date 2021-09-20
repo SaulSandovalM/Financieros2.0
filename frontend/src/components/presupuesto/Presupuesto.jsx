@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
 // Material Ui
-import { 
-  Button, 
-  Grid, 
-  Paper, 
-  TextField,
-  Snackbar
-} from '@material-ui/core'
+import { Button, Grid, Paper, TextField, Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
+// Servicios
 import clsx from 'clsx'
 import PresupuestoDataService from '../../services/Presupuesto'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
-import { CloudUpload } from '@material-ui/icons'
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -120,6 +115,7 @@ export default function Presupuesto (props) {
     np: '',
     cpa: '',
     nombreP: '',
+    oficio: '',
     enero: 0,
     febrero: 0,
     marzo: 0,
@@ -136,7 +132,9 @@ export default function Presupuesto (props) {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
   const [sever, setSever] = useState('')
-
+  const [file, setFile] = useState()
+  const [fileName, setFileName] = useState('')
+  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
     
   // funciones
@@ -148,6 +146,8 @@ export default function Presupuesto (props) {
   }
 
   const savePresupuesto = (e) => {
+    uploadFile()
+
     var data = {
       year: state.year,
       rm: state.rm,
@@ -183,6 +183,7 @@ export default function Presupuesto (props) {
       np: state.np,
       cpa: state.cpa,
       nombreP: state.nombreP,
+      oficio: state.oficio,
       enero: state.enero,
       febrero: state.febrero,
       marzo: state.marzo,
@@ -234,6 +235,7 @@ export default function Presupuesto (props) {
         np: '',
         cpa: '',
         nombreP: '',
+        oficio: '',
         enero: 0,
         febrero: 0,
         marzo: 0,
@@ -258,6 +260,24 @@ export default function Presupuesto (props) {
     })
   }
 
+  const saveFile = (e) => {
+    setFile(e.target.files[0])
+    setFileName(e.target.files[0].name)
+  }
+ 
+  const uploadFile = async (e) => {
+    console.log('Entre a la function')
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('fileName', fileName)
+    try {
+      const res = await axios.post("http://localhost:8080/upload", formData)
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -278,7 +298,6 @@ export default function Presupuesto (props) {
     <div>
       <div className={classes.titleContainer}>
         <div className={classes.title}>Presupuesto</div>
-        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
       </div>
       <Snackbar 
         open={open} 
@@ -626,11 +645,21 @@ export default function Presupuesto (props) {
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <TextField 
-              label='Nombre Proyecto'
+              label='Nombre proyecto'
               fullWidth
               value={state.nombreP}
               onChange={handleChange}
               name='nombreP'
+              required
+            />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+            <TextField 
+              label='Oficio de autorización'
+              fullWidth
+              value={state.oficio}
+              onChange={handleChange}
+              name='oficio'
               required
             />
           </Grid>
@@ -788,6 +817,17 @@ export default function Presupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
+            />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+            <TextField 
+              label='Oficio de autorización'
+              fullWidth
+              type='file'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={saveFile}
             />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>

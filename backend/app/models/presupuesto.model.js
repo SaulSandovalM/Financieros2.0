@@ -102,6 +102,9 @@ module.exports = (sequelize, Sequelize) => {
     nombreP: {
       type: Sequelize.STRING
     },
+    oficio: {
+      type: Sequelize.STRING
+    },
     enero: {
       type: Sequelize.FLOAT
     },

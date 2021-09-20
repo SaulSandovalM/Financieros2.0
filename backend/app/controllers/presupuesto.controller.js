@@ -39,7 +39,8 @@ exports.create = (req, res) => {
     !req.body.of ||
     !req.body.np ||
     !req.body.cpa ||
-    !req.body.nombreP
+    !req.body.nombreP ||
+    !req.body.oficio
   ) {
     return res.status(400).send({ message: 'Faltan campos!' })
   }
@@ -79,6 +80,7 @@ exports.create = (req, res) => {
     np: req.body.np,
     cpa: req.body.cpa,
     nombreP: req.body.nombreP,
+    oficio: req.body.oficio,
     enero: req.body.enero,
     febrero: req.body.febrero,
     marzo: req.body.marzo,

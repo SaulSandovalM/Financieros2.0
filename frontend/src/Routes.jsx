@@ -45,7 +45,6 @@ import {
   AccountCircle,
   ExpandLess,
   ExpandMore,
-  LocalAtm,
   AttachMoney,
   ImportExport,
   FormatListBulleted,
@@ -70,7 +69,6 @@ import Archivos from './components/presupuesto/Archivos'
 import Disponible from './components/presupuesto/Disponible'
 import Contrarecibo from './components/presupuesto/Contrarecibo'
 import Informe from './components/presupuesto/Informe'
-import Transferencia from './components/presupuesto/Transferencia'
 import Movimientos from './components/presupuesto/Movimientos'
 import Actualizar from './components/presupuesto/Actualizar'
 //Tesoreria
@@ -434,12 +432,6 @@ export default function Routes (props) {
                         <ListItemText primary='Movimientos' />
                       </ListItem>
                     </Link>
-                    <Link to='/transferencia' className={classes.linkDecoration}>
-                       <ListItem button className={classes.nested}>
-                        <ListItemIcon><LocalAtm /></ListItemIcon>
-                        <ListItemText primary='Transferencia' />
-                      </ListItem>
-                    </Link>
                   </List> 
                 </Collapse>
                 <Link to='/revolvente' className={classes.linkDecoration}>
@@ -586,7 +578,6 @@ export default function Routes (props) {
             <Route exact path='/disponible' component={Disponible} />
             <Route exact path='/contrarecibo' component={Contrarecibo} />
             <Route exact path='/informe' component={Informe} />
-            <Route exact path='/transferencia' component={Transferencia} />
             <Route exact path='/movimientos' component={Movimientos} />
             <Route exact path='/actualizar' component={Actualizar} />
             {/* Tesoreria */}
