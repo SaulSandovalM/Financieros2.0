@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const db = require('./app/models')
 const Role = db.role
 
+global.__basedir = __dirname
+
 // Para desarrollo
 db.sequelize.sync({ force: true }).then(() => {
   console.log('Drop and re-sync Database with { force: true }')
@@ -35,6 +37,7 @@ app.get('/', (req, res) => {
 require('./app/routes/user.routes')(app)
 require('./app/routes/auth.routes')(app)
 require('./app/routes/presupuesto.routes')(app)
+require('./app/routes/archivo.routes')(app)
 
 // establecemos nuestro puerto
 const PORT = process.env.PORT || 8080

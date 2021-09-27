@@ -1,6 +1,7 @@
 const multer = require('multer')
 
 const archivoFilter = (req, file, cb) => {
+  console.log('Upload mid' + file)
   if (file.mimetype.startsWith('archivo')) {
     cb(null, true)
   } else {

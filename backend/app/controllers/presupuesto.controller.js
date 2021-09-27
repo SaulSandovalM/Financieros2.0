@@ -2,6 +2,7 @@ const db = require('../models')
 const Presupuesto = db.presupuesto
 const Op = db.Sequelize.Op
 
+
 // Creando una partida al presupuesto
 exports.create = (req, res) => {
   // Validando 

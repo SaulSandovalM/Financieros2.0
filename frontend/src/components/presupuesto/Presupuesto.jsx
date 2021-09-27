@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import { Button, Grid, Paper, TextField, Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
+import NumberFormat from 'react-number-format'
+import PropTypes from 'prop-types'
 // Servicios
 import clsx from 'clsx'
 import PresupuestoDataService from '../../services/Presupuesto'
-import NumberFormat from 'react-number-format'
-import PropTypes from 'prop-types'
-import axios from 'axios'
+import ArchivosDataService from '../../services/Archivos'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -127,14 +127,15 @@ export default function Presupuesto (props) {
     septiembre: 0,
     octubre: 0,
     noviembre: 0,
-    diciembre: 0
+    diciembre: 0,
+    nombre: '',
+    archivo: ''
   })
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
   const [sever, setSever] = useState('')
   const [file, setFile] = useState()
-  const [fileName, setFileName] = useState('')
-  
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
     
   // funciones
@@ -146,8 +147,6 @@ export default function Presupuesto (props) {
   }
 
   const savePresupuesto = (e) => {
-    uploadFile()
-
     var data = {
       year: state.year,
       rm: state.rm,
@@ -197,6 +196,24 @@ export default function Presupuesto (props) {
       noviembre: state.noviembre,
       diciembre: state.diciembre
     }
+
+    const datas = new FormData()
+
+    var dataArchivo = {
+      archivo: datas.append('file', file),
+      oficio: state.oficio
+    }
+
+    console.log(dataArchivo)
+    console.log(file)
+
+    ArchivosDataService.archivo(dataArchivo).then(response => {
+      console.log('Sali de la funcion')
+      setState({
+        archivo: '',
+        oficio: ''
+      })
+    })
     
     PresupuestoDataService.create(data).then(response => {
       setState({
@@ -262,20 +279,6 @@ export default function Presupuesto (props) {
 
   const saveFile = (e) => {
     setFile(e.target.files[0])
-    setFileName(e.target.files[0].name)
-  }
- 
-  const uploadFile = async (e) => {
-    console.log('Entre a la function')
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('fileName', fileName)
-    try {
-      const res = await axios.post("http://localhost:8080/upload", formData)
-      console.log(res)
-    } catch (e) {
-      console.log(e)
-    }
   }
 
   const handleClose = (event, reason) => {
@@ -821,7 +824,7 @@ export default function Presupuesto (props) {
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <TextField 
-              label='Oficio de autorización'
+              label='Oficio de solicitud'
               fullWidth
               type='file'
               InputLabelProps={{

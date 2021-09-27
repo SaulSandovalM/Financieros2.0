@@ -1,13 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Archivo = sequelize.define('archivo', {
     type: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     nombre: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     data: {
-      type: DataTypes.BLOB('long'),
+      type: DataTypes.BLOB('long')
+    },
+    oficio: {
+      type: DataTypes.STRING
     }
   })
   return Archivo
