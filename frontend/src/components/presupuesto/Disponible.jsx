@@ -94,7 +94,7 @@ const columns: GridColDef[] = [
   }}
 ]
 
-function CustomToolbar() {
+function CustomToolbar () {
   return (
     <GridToolbarContainer>
       <GridToolbarExport />
@@ -102,9 +102,21 @@ function CustomToolbar() {
   )
 }
 
+function loadServerRows (page, data) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(data.slice(page * 10, (page + 1) * 10));
+    })
+  })
+}
+
 export default function Disponible () {
   const classes = useStyles()
+  // States
   const [disponible, setDisponible] = useState([])
+  const [page, setPage] = useState(0)
+  const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // Actualiza la API
@@ -117,7 +129,27 @@ export default function Disponible () {
       console.log(e)
     })
   }, [])
+  
+  useEffect(() => {
+    let active = true;
 
+    (async () => {
+      setLoading(true)
+      const newRows = await loadServerRows(page, disponible)
+
+      if (!active) {
+        return
+      }
+
+      setRows(newRows)
+      setLoading(false)
+    })()
+
+    return () => {
+      active = false
+    }
+  }, [page, disponible]) 
+  
   return (
     <div>
       <Typography className={classes.title} variant='h6' id='tableTitle' component='div'>
@@ -128,10 +160,12 @@ export default function Disponible () {
           <div className={classes.content}>
             <div className={classes.grow}>
               <DataGrid 
-                rows={disponible} 
+                rows={rows} 
                 columns={columns} 
-                pageSize={20}
-                rowsPerPageOptions={[20]}
+                pagination
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                rowCount={disponible.length}
                 disableSelectionOnClick
                 autoHeight
                 autoPageSize
@@ -164,6 +198,9 @@ export default function Disponible () {
                   columnsPanelShowAllButton: 'Ver todos',
                   columnsPanelHideAllButton: 'Ocultar todos'
                 }}
+                paginationMode="server"
+                onPageChange={(newPage) => setPage(newPage)}
+                loading={loading} 
               />
             </div>
           </div>

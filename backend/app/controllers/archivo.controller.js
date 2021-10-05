@@ -6,6 +6,7 @@ const archivo = async (req, res) => {
   console.log('Entre al controller')
   try {
     console.log(req.archivo)
+    console.log(req.oficio)
     if (req.archivo == undefined) {
       return res.send('Tu debes seleccionar un archivo')
       console.log('Tu debes seleccionar un archivo')

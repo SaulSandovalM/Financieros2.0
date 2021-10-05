@@ -23,11 +23,11 @@ const Role = db.role
 global.__basedir = __dirname
 
 // Para desarrollo
-db.sequelize.sync({ force: true }).then(() => {
-  console.log('Drop and re-sync Database with { force: true }')
-  initial()
-})
-// db.sequelize.sync()
+// db.sequelize.sync({ force: true }).then(() => {
+//  console.log('Drop and re-sync Database with { force: true }')
+//  initial()
+//})
+db.sequelize.sync()
 
 app.get('/', (req, res) => {
   res.json({ message: 'Funciona' })

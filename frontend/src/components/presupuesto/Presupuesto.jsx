@@ -134,7 +134,7 @@ export default function Presupuesto (props) {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
   const [sever, setSever] = useState('')
-  const [file, setFile] = useState()
+//  const [file, setFile] = useState()
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
     
@@ -197,15 +197,10 @@ export default function Presupuesto (props) {
       diciembre: state.diciembre
     }
 
-    const datas = new FormData()
-
     var dataArchivo = {
-      archivo: datas.append('file', file),
+ //     archivo: file,
       oficio: state.oficio
     }
-
-    console.log(dataArchivo)
-    console.log(file)
 
     ArchivosDataService.archivo(dataArchivo).then(response => {
       console.log('Sali de la funcion')
@@ -277,8 +272,15 @@ export default function Presupuesto (props) {
     })
   }
 
+  let formData = new FormData()
+
   const saveFile = (e) => {
-    setFile(e.target.files[0])
+    console.log(e.target.files[0])
+    console.log(formData)
+    if (e.target && e.target.files[0]) {
+      formData.append('file', e.target.files[0])
+    }
+    console.log(formData)
   }
 
   const handleClose = (event, reason) => {
