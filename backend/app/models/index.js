@@ -24,7 +24,6 @@ db.tutorials = require('./tutorial.model.js')(sequelize, Sequelize)
 // Presupuesto
 db.presupuesto = require('./presupuesto.model.js')(sequelize, Sequelize)
 // Carga de archivos
-db.archivo = require('./archivo.model.js')(sequelize, Sequelize)
 
 db.role.belongsToMany(db.user, {
   through: 'user_roles',

@@ -8,8 +8,8 @@ import PropTypes from 'prop-types'
 // Servicios
 import clsx from 'clsx'
 import PresupuestoDataService from '../../services/Presupuesto'
-import ArchivosDataService from '../../services/Archivos'
 
+// Estilos
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
@@ -134,7 +134,6 @@ export default function Presupuesto (props) {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
   const [sever, setSever] = useState('')
-//  const [file, setFile] = useState()
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
     
@@ -196,19 +195,6 @@ export default function Presupuesto (props) {
       noviembre: state.noviembre,
       diciembre: state.diciembre
     }
-
-    var dataArchivo = {
- //     archivo: file,
-      oficio: state.oficio
-    }
-
-    ArchivosDataService.archivo(dataArchivo).then(response => {
-      console.log('Sali de la funcion')
-      setState({
-        archivo: '',
-        oficio: ''
-      })
-    })
     
     PresupuestoDataService.create(data).then(response => {
       setState({
@@ -270,17 +256,6 @@ export default function Presupuesto (props) {
       setMessage(resMessage)
       setOpen(true)
     })
-  }
-
-  let formData = new FormData()
-
-  const saveFile = (e) => {
-    console.log(e.target.files[0])
-    console.log(formData)
-    if (e.target && e.target.files[0]) {
-      formData.append('file', e.target.files[0])
-    }
-    console.log(formData)
   }
 
   const handleClose = (event, reason) => {
@@ -822,17 +797,6 @@ export default function Presupuesto (props) {
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
-            />
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <TextField 
-              label='Oficio de solicitud'
-              fullWidth
-              type='file'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={saveFile}
             />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
