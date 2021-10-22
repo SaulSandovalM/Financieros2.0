@@ -96,9 +96,20 @@ const columns: GridColDef[] = [
   }
 ]
 
+function loadServerRows(page, data) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(data.slice(page * 20, (page + 1) * 20));
+    }, Math.random() * 500 + 100) // simulate network latency
+  })
+}
+
 export default function Actualizar (props) {
   const classes = useStyles()
   const [presupuesto, setPresupuesto] = useState([])
+  const [page, setPage] = useState(0)
+  const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     PresupuestoDataService.getAll().then(response => {
@@ -106,8 +117,26 @@ export default function Actualizar (props) {
       // console.log(response.data)
     }).catch(e => {
       console.log(e)
-    })
+    }) 
   }, [])
+
+  useEffect(() => {
+    let active = true;
+
+    (async () => {
+      setLoading(true)
+      const newRows = await loadServerRows(page, presupuesto)
+      if (!active) {
+        return
+      }
+      setRows(newRows)
+      setLoading(false)
+    })()
+
+    return () => {
+      active = false
+    }
+  }, [page, presupuesto])
 
   const setActivePartida = (partida) => {
     props.history.push('/presupuesto/' + partida)
@@ -123,7 +152,7 @@ export default function Actualizar (props) {
           <div className={classes.content}>
             <div className={classes.grow}>
               <DataGrid 
-                rows={presupuesto} 
+                rows={rows} 
                 columns={columns} 
                 pageSize={20}
                 rowsPerPageOptions={[20]}
@@ -134,6 +163,11 @@ export default function Actualizar (props) {
                 autoHeight
                 autoPageSize
                 onRowClick={(presupuesto) => setActivePartida(presupuesto.id)}
+                pagination
+                paginationMode='server'
+                onPageChange={(newPage) => setPage(newPage)}
+                loading={loading}
+                rowCount={presupuesto.length}
               />
             </div>
           </div>
