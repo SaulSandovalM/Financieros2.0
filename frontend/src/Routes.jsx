@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 // Material ui
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import {
-  Drawer,
-  AppBar,
-  CssBaseline,
-  Toolbar,
-  List,
-  Typography,
-  Divider,
+import { 
+  Drawer, 
+  AppBar, 
+  CssBaseline, 
+  Toolbar, 
+  List, 
+  Typography, 
+  Divider, 
   ListItem,
   ListItemText,
   ListItemIcon,
@@ -81,7 +81,6 @@ import ValesList from './components/tesoreria/ValesList'
 import Caratula from './components/tesoreria/Caratula'
 // Fondos
 import Fondos from './components/fondos/Fondos'
-
 // Validacion
 import Validacion from './components/validacion/Validacion'
 // Direccion
@@ -471,7 +470,7 @@ export default function Routes (props) {
                         <ListItemText primary='Informe' />
                       </ListItem>
                     </Link>
-                    <Link to='' className={classes.linkDecoration}>
+                    <Link to='/historial' className={classes.linkDecoration}>
                        <ListItem button className={classes.nested}>
                         <ListItemIcon><History /></ListItemIcon>
                         <ListItemText primary='Historial' />

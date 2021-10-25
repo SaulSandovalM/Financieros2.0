@@ -2,9 +2,9 @@ const db = require('../models')
 const Presupuesto = db.presupuesto
 const Op = db.Sequelize.Op
 
-// Creando una partida al presupuesto
+// Create 
 exports.create = (req, res) => {
-  // Validando 
+  // Validating
   if (
     !req.body.year ||
     !req.body.rm ||
@@ -105,8 +105,8 @@ exports.create = (req, res) => {
   })
 }
 
-// Recuperar todos los datos de la base
-exports.findAll = (req, res) => {
+// Get all data from database
+exports.getAll = (req, res) => {
   Presupuesto.findAll().then(data => {
     res.send(data)
   }).catch(err => {
@@ -116,7 +116,7 @@ exports.findAll = (req, res) => {
   })
 }
 
-// Actualizar
+// Update
 exports.update = (req, res) => {
   const id = req.params.id
 
@@ -127,26 +127,35 @@ exports.update = (req, res) => {
       })
     } else {
       res.send({
-        message: `No se actualizo el presupuesto con id = ${id}. Quiza mp se encuentra o el req.body esta vacio!`
+        message: `No se actualizo el presupuesto con id = ${id}. Quiza el req.body esta vacio!`
       })
     }
-  })
-  .catch(err => {
+  }).catch(err => {
     res.status(500).send({
       message: 'Error al actualizar el id = ' + id
     })
   })
 }
 
-// Encontrar partida por id
+// Find by id
 exports.findOne = (req, res) => {
   const id = req.params.id
-
   Presupuesto.findByPk(id).then(data => {
     res.send(data)
   }).catch(err => {
     res.status(500).send({
       message: 'Error al traer la partida con id = ' + id
+    })
+  })
+}
+
+// Group By
+exports.groupAll = (req, res) => {
+  Presupuesto.findAll({ attributes: ['up'], group: 'up' }).then(data => {
+    res.send(data)
+  }).catch(err => {
+    res.status(500).send({
+      message: err.message || 'Algo salio mal'
     })
   })
 }

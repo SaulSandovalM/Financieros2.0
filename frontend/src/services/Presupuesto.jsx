@@ -16,6 +16,10 @@ class PresupuestoDataService {
   get (id) {
     return http.get(`/presupuesto/${id}`)
   }
+
+  group () {
+    return http.get('/presupuesto')
+  }
 }
 
 export default new PresupuestoDataService()

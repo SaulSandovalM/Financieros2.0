@@ -3,16 +3,19 @@ module.exports = app => {
 
   var router = require('express').Router()
 
-  // Crear un nuevo presupuesto
+  // Create
   router.post('/', presupuesto.create)
 
-  // Traer el presupuesto
-  router.get('/', presupuesto.findAll)
+  // Get All
+  router.get('/', presupuesto.getAll)
+  
+  // Get Group by
+  router.get('/', presupuesto.groupAll)
 
-  // Actualizar el presupuesto
+  // Update
   router.put('/:id', presupuesto.update)
 
-  // Traer partida con id
+  // Get by Id
   router.get('/:id', presupuesto.findOne)
 
   app.use('/api/presupuesto', router)

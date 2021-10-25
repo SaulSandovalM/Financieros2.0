@@ -1,21 +1,14 @@
-import React, { useState } from 'react'
-import { 
-  Grid, 
-  Paper, 
-  TextField, 
-  Select, 
-  FormControl, 
-  InputLabel, 
-  MenuItem, 
-  Button 
-} from '@material-ui/core'
-import { CloudUpload } from '@material-ui/icons'
+import React, { useState, useEffect } from 'react'
+// Material UI
+import { Grid, Paper, TextField, Select, FormControl, InputLabel, MenuItem, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+// Services
+import PresupuestoDataService from '../../services/Presupuesto'
 
-// Estilos
+// Styles
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
@@ -102,10 +95,11 @@ export default function Revolvente () {
   const [values, setValues] = useState({
     numberformat: '1320',
   })
+  const [presupuesto, setPresupuesto] = useState([])
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
   
-  // Funciones
+  // Functions
   const handleChange = (event) => {
     setAge(event.target.value)
   }
@@ -129,11 +123,19 @@ export default function Revolvente () {
     })
   }
 
+  useEffect(() => {
+    PresupuestoDataService.group().then(response => {
+      setPresupuesto(response.data)
+      console.log(response.data)
+    }).catch(e => {
+      console.log(e)
+    })
+  }, [])
+
   return (
     <form>
       <div className={classes.titleContainer}>
         <div className={classes.title}>Creación de fondo revolvente</div>
-        <Button variant='outlined' startIcon={<CloudUpload />} className={classes.button}>Cargar Contrarecibo</Button>
       </div>
       <Paper className={fixedHeightPaper}>
         <Grid container spacing={3}>
@@ -145,8 +147,9 @@ export default function Revolvente () {
                 value={up}
                 onChange={handleChangeUp}
               >
-                <MenuItem value='01'>01</MenuItem>
-                <MenuItem value='02'>02</MenuItem>
+                {presupuesto.map(item => 
+                  <MenuItem value={item.up}>{item.up}</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -158,7 +161,9 @@ export default function Revolvente () {
                 value={partida}
                 onChange={handleChangePartida}
               >
-                <MenuItem value='211001'>211001</MenuItem>
+                {presupuesto.map(item =>
+                  <MenuItem value={item.ogasto}>{item.ogasto}</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -170,7 +175,9 @@ export default function Revolvente () {
                 value={rubro}
                 onChange={handleChangeRubro}
               >
-                <MenuItem value='311101'>311101</MenuItem>
+                {presupuesto.map(item =>
+                  <MenuItem value={item.rubro}>{item.rubro}</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>
