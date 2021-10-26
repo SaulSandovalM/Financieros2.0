@@ -88,10 +88,11 @@ NumberFormatCustom.propTypes = {
 export default function Revolvente () {
   // States
   const classes = useStyles()
-  const [age, setAge] = useState()
-  const [up, setUp] = useState()
-  const [partida, setPartida] = useState()
-  const [rubro, setRubro] = useState()
+  const [mount, setMount] = useState('')
+  const [up, setUp] = useState('')
+  const [ogasto, setOgasto] = useState([])
+  const [partida, setPartida] = useState('')
+  const [rubro, setRubro] = useState('')
   const [values, setValues] = useState({
     numberformat: '1320',
   })
@@ -101,11 +102,21 @@ export default function Revolvente () {
   
   // Functions
   const handleChange = (event) => {
-    setAge(event.target.value)
+    setMount(event.target.value)
   }
 
   const handleChangeUp = (event) => {
     setUp(event.target.value)
+    const ups = {
+      up: event.target.value,
+    }
+
+    PresupuestoDataService.getOgasto(ups).then(response => {
+      setOgasto(response.data)
+      // console.log(response.data)  
+    }).catch(e => {
+      console.log(e)
+    })
   }
 
   const handleChangePartida = (event) => {
@@ -124,7 +135,7 @@ export default function Revolvente () {
   }
 
   useEffect(() => {
-    PresupuestoDataService.group().then(response => {
+    PresupuestoDataService.getUp().then(response => {
       setPresupuesto(response.data)
       console.log(response.data)
     }).catch(e => {
@@ -148,7 +159,7 @@ export default function Revolvente () {
                 onChange={handleChangeUp}
               >
                 {presupuesto.map(item => 
-                  <MenuItem value={item.up}>{item.up}</MenuItem>
+                  <MenuItem value={item.up} key={item.id}>{item.up}</MenuItem>
                 )}
               </Select>
             </FormControl>
@@ -161,8 +172,8 @@ export default function Revolvente () {
                 value={partida}
                 onChange={handleChangePartida}
               >
-                {presupuesto.map(item =>
-                  <MenuItem value={item.ogasto}>{item.ogasto}</MenuItem>
+                {ogasto.map(item =>
+                  <MenuItem value={item.ogasto} key={item.id}>{item.ogasto}</MenuItem>
                 )}
               </Select>
             </FormControl>
@@ -176,7 +187,7 @@ export default function Revolvente () {
                 onChange={handleChangeRubro}
               >
                 {presupuesto.map(item =>
-                  <MenuItem value={item.rubro}>{item.rubro}</MenuItem>
+                  <MenuItem value={item.rubro} key={item.id}>{item.rubro}</MenuItem>
                 )}
               </Select>
             </FormControl>
@@ -186,21 +197,21 @@ export default function Revolvente () {
               <InputLabel>Mes</InputLabel>
               <Select
                 label='Mes'
-                value={age}
+                value={mount}
                 onChange={handleChange}
               >
-                <MenuItem value='Enero'>Enero</MenuItem>
-                <MenuItem value='Febero'>Febrero</MenuItem>
-                <MenuItem value='Marzo'>Marzo</MenuItem>
-                <MenuItem value='Abril'>Abril</MenuItem>
-                <MenuItem value='Mayo'>Mayo</MenuItem>
-                <MenuItem value='Junio'>Junio</MenuItem>
-                <MenuItem value='Julio'>Julio</MenuItem>
-                <MenuItem value='Agosto'>Agosto</MenuItem>
-                <MenuItem value='Septiembre'>Septiembre</MenuItem>
-                <MenuItem value='Octubre'>Octubre</MenuItem>
-                <MenuItem value='Noviembre'>Noviembre</MenuItem>
-                <MenuItem value='Diciembre'>Diciembre</MenuItem>
+                <MenuItem value='Enero' key=''>Enero</MenuItem>
+                <MenuItem value='Febero' key=''>Febrero</MenuItem>
+                <MenuItem value='Marzo' key=''>Marzo</MenuItem>
+                <MenuItem value='Abril' key=''>Abril</MenuItem>
+                <MenuItem value='Mayo' key=''>Mayo</MenuItem>
+                <MenuItem value='Junio' key=''>Junio</MenuItem>
+                <MenuItem value='Julio' key=''>Julio</MenuItem>
+                <MenuItem value='Agosto' key=''>Agosto</MenuItem>
+                <MenuItem value='Septiembre' key=''>Septiembre</MenuItem>
+                <MenuItem value='Octubre' key=''>Octubre</MenuItem>
+                <MenuItem value='Noviembre' key=''>Noviembre</MenuItem>
+                <MenuItem value='Diciembre' key=''>Diciembre</MenuItem>
               </Select>
             </FormControl>
           </Grid>

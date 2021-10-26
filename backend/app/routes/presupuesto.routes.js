@@ -9,8 +9,11 @@ module.exports = app => {
   // Get All
   router.get('/', presupuesto.getAll)
   
-  // Get Group by
-  router.get('/', presupuesto.groupAll)
+  // Get Up
+  router.get('/up', presupuesto.upAll)
+
+  // Get Ogasto
+  router.put('/ogasto', presupuesto.ogastoAll)
 
   // Update
   router.put('/:id', presupuesto.update)

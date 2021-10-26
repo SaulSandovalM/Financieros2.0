@@ -17,8 +17,12 @@ class PresupuestoDataService {
     return http.get(`/presupuesto/${id}`)
   }
 
-  group () {
-    return http.get('/presupuesto')
+  getUp () {
+    return http.get('/presupuesto/up')
+  }
+
+  getOgasto (up) {
+    return http.put('/presupuesto/ogasto', up)
   }
 }
 

@@ -150,8 +150,19 @@ exports.findOne = (req, res) => {
 }
 
 // Group By
-exports.groupAll = (req, res) => {
+exports.upAll = (req, res) => {
   Presupuesto.findAll({ attributes: ['up'], group: 'up' }).then(data => {
+    res.send(data)
+  }).catch(err => {
+    res.status(500).send({
+      message: err.message || 'Algo salio mal'
+    })
+  })
+}
+
+exports.ogastoAll = (req, res) => {
+  const up = req.body.up
+  Presupuesto.findAll({ where: { up: up }, attributes: ['ogasto'], group: 'ogasto' }).then(data => {
     res.send(data)
   }).catch(err => {
     res.status(500).send({
