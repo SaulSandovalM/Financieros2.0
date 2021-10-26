@@ -12,8 +12,11 @@ module.exports = app => {
   // Get Up
   router.get('/up', presupuesto.upAll)
 
-  // Get Ogasto
+  // Params Ogasto
   router.put('/ogasto', presupuesto.ogastoAll)
+
+  //  Params Rubro
+  router.put('/rubro', presupuesto.rubroAll)
 
   // Update
   router.put('/:id', presupuesto.update)

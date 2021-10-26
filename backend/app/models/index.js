@@ -18,12 +18,11 @@ const db = {}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
+// Users
 db.user = require('./user.model.js')(sequelize, Sequelize)
 db.role = require('./role.model.js')(sequelize, Sequelize)
-db.tutorials = require('./tutorial.model.js')(sequelize, Sequelize)
 // Presupuesto
 db.presupuesto = require('./presupuesto.model.js')(sequelize, Sequelize)
-// Carga de archivos
 
 db.role.belongsToMany(db.user, {
   through: 'user_roles',

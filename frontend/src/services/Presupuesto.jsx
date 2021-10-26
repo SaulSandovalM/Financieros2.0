@@ -24,6 +24,10 @@ class PresupuestoDataService {
   getOgasto (up) {
     return http.put('/presupuesto/ogasto', up)
   }
+
+  rubro (ogasto) {
+    return http.put('/presupuesto/rubro', ogasto)
+  }
 }
 
 export default new PresupuestoDataService()

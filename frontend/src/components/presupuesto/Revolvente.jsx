@@ -88,14 +88,14 @@ NumberFormatCustom.propTypes = {
 export default function Revolvente () {
   // States
   const classes = useStyles()
-  const [mount, setMount] = useState('')
   const [up, setUp] = useState('')
   const [ogasto, setOgasto] = useState([])
   const [partida, setPartida] = useState('')
+  const [rb, setRb] = useState([])
   const [rubro, setRubro] = useState('')
-  const [values, setValues] = useState({
-    numberformat: '1320',
-  })
+  const [mount, setMount] = useState('')
+  const [cantidad, setCantidad] = useState(0)
+  const [oficio, setOficio] = useState('')
   const [presupuesto, setPresupuesto] = useState([])
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
@@ -121,6 +121,16 @@ export default function Revolvente () {
 
   const handleChangePartida = (event) => {
     setPartida(event.target.value)
+    const ogastos = {
+      ogasto: event.target.value,
+    }
+
+    PresupuestoDataService.rubro(ogastos).then(response => {
+      setRb(response.data)
+      // console.log(response.data)  
+    }).catch(e => {
+      console.log(e)
+    })
   }
 
   const handleChangeRubro = (event) => { 
@@ -128,16 +138,17 @@ export default function Revolvente () {
   }
 
   const handleNumFormat = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    })
+    setCantidad(event.target.value)
+  }
+
+  const handleChangeOficio = (event) => {
+    setOficio(event.target.value)
   }
 
   useEffect(() => {
     PresupuestoDataService.getUp().then(response => {
       setPresupuesto(response.data)
-      console.log(response.data)
+      // console.log(response.data)
     }).catch(e => {
       console.log(e)
     })
@@ -186,7 +197,7 @@ export default function Revolvente () {
                 value={rubro}
                 onChange={handleChangeRubro}
               >
-                {presupuesto.map(item =>
+                {rb.map(item =>
                   <MenuItem value={item.rubro} key={item.id}>{item.rubro}</MenuItem>
                 )}
               </Select>
@@ -200,18 +211,18 @@ export default function Revolvente () {
                 value={mount}
                 onChange={handleChange}
               >
-                <MenuItem value='Enero' key=''>Enero</MenuItem>
-                <MenuItem value='Febero' key=''>Febrero</MenuItem>
-                <MenuItem value='Marzo' key=''>Marzo</MenuItem>
-                <MenuItem value='Abril' key=''>Abril</MenuItem>
-                <MenuItem value='Mayo' key=''>Mayo</MenuItem>
-                <MenuItem value='Junio' key=''>Junio</MenuItem>
-                <MenuItem value='Julio' key=''>Julio</MenuItem>
-                <MenuItem value='Agosto' key=''>Agosto</MenuItem>
-                <MenuItem value='Septiembre' key=''>Septiembre</MenuItem>
-                <MenuItem value='Octubre' key=''>Octubre</MenuItem>
-                <MenuItem value='Noviembre' key=''>Noviembre</MenuItem>
-                <MenuItem value='Diciembre' key=''>Diciembre</MenuItem>
+                <MenuItem value='Enero' key='1'>Enero</MenuItem>
+                <MenuItem value='Febero' key='2'>Febrero</MenuItem>
+                <MenuItem value='Marzo' key='3'>Marzo</MenuItem>
+                <MenuItem value='Abril' key='4'>Abril</MenuItem>
+                <MenuItem value='Mayo' key='5'>Mayo</MenuItem>
+                <MenuItem value='Junio' key='6'>Junio</MenuItem>
+                <MenuItem value='Julio' key='7'>Julio</MenuItem>
+                <MenuItem value='Agosto' key='8'>Agosto</MenuItem>
+                <MenuItem value='Septiembre' key='9'>Septiembre</MenuItem>
+                <MenuItem value='Octubre' key='10'>Octubre</MenuItem>
+                <MenuItem value='Noviembre' key='11'>Noviembre</MenuItem>
+                <MenuItem value='Diciembre' key='12'>Diciembre</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -220,6 +231,8 @@ export default function Revolvente () {
               label='Cantidad'
               onChange={handleNumFormat}
               fullWidth
+              name='cantidad'
+              value={cantidad}
               InputProps={{
                 inputComponent: NumberFormatCustom
               }}
@@ -229,6 +242,8 @@ export default function Revolvente () {
             <TextField 
               label='Oficio de autorización'
               fullWidth
+              onChange={handleChangeOficio}
+              value={oficio}
             />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
