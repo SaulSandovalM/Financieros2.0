@@ -23,7 +23,11 @@ db.user = require('./user.model.js')(sequelize, Sequelize)
 db.role = require('./role.model.js')(sequelize, Sequelize)
 // Presupuesto
 db.presupuesto = require('./presupuesto.model.js')(sequelize, Sequelize)
+//Movements
+db.tipomovimiento = require('./tipoMovimiento.model.js')(sequelize, Sequelize)
+db.movements = require('./movements.model.js')(sequelize, Sequelize)
 
+// Relation Role with User
 db.role.belongsToMany(db.user, {
   through: 'user_roles',
   foreignKey: 'roleId',
@@ -36,5 +40,19 @@ db.user.belongsToMany(db.role, {
 })
 
 db.ROLES = ['user', 'admin', 'moderator']
+
+// Relation Movements
+db.tipomovimiento.belongsToMany(db.movements, {
+  through: 'movements_type',
+  foreignKey: 'tipomovimientoId',
+  otherKey: 'movementsId'
+})
+db.movements.belongsToMany(db.tipomovimiento, {
+  through: 'movements_type',
+  foreignKey: 'movementsId',
+  otherKey: 'tipomovimientoId'
+})
+
+db.MOVEMENTS = ['Ampliación', 'Reducción', 'Transferencia', 'Revolvente']
 
 module.exports = db

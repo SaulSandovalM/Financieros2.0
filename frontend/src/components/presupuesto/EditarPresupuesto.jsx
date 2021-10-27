@@ -520,6 +520,7 @@ export default function EditarPresupuesto (props) {
               onChange={handleChange}
               name='oficio'
               required
+              disabled={open}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>

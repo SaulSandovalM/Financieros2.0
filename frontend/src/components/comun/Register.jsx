@@ -75,7 +75,8 @@ export default function Register (props) {
       setMessage(response.data.message)
       setSuccessful(true)
     }, error => {
-      const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+      const resMessage = (error.response && error.response.data && error.response.data.message) || 
+        error.message || error.toString()
       setSuccessful(false)
       setMessage(resMessage)
     })

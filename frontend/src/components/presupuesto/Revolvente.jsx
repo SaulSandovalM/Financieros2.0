@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 // Material UI
-import { Grid, Paper, TextField, Select, FormControl, InputLabel, MenuItem, Button } from '@material-ui/core'
+import { Grid, Paper, TextField, Select, FormControl, InputLabel, MenuItem, Button, Snackbar } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/core/styles'
 import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 // Services
 import PresupuestoDataService from '../../services/Presupuesto'
+import MovementsDataService from '../../services/Movements'
 
 // Styles
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+function Alert (props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />
+}
+
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props
 
@@ -97,6 +103,9 @@ export default function Revolvente () {
   const [cantidad, setCantidad] = useState(0)
   const [oficio, setOficio] = useState('')
   const [presupuesto, setPresupuesto] = useState([])
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState('')
+  const [sever, setSever] = useState('')
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
   
@@ -145,6 +154,41 @@ export default function Revolvente () {
     setOficio(event.target.value)
   }
 
+  const saveMovement = (e) => {
+    var data = {
+      up: up,
+      ogasto: partida,
+      rubro: rubro,
+      mount: mount,
+      amount: cantidad,
+      oficio: oficio
+    }
+
+    MovementsDataService.create(data).then(response => {
+      setUp('')
+      setPartida('')
+      setRubro('')
+      setMount('')
+      setCantidad(0)
+      setOficio('')
+      setSever('success')
+      setMessage('Carga exitosa')
+      setOpen(true)
+    }).catch(e => {
+      const resMessage = ((e.response && e.response.data && e.response.data.message) || e.message || e.toString())
+      setSever('error')
+      setMessage(resMessage)
+      setOpen(true)
+    })
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpen(false)
+  }
+
   useEffect(() => {
     PresupuestoDataService.getUp().then(response => {
       setPresupuesto(response.data)
@@ -159,6 +203,19 @@ export default function Revolvente () {
       <div className={classes.titleContainer}>
         <div className={classes.title}>Creación de fondo revolvente</div>
       </div>
+      <Snackbar 
+        open={open} 
+        autoHideDuration={5000} 
+        onClose={handleClose}
+         anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <Alert onClose={handleClose} severity={sever}>
+          {message}
+        </Alert>
+      </Snackbar>
       <Paper className={fixedHeightPaper}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} lg={3}>
@@ -248,7 +305,7 @@ export default function Revolvente () {
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <div className={classes.btn}> 
-              <Button variant='outlined' className={classes.btnBack}>Enviar</Button>
+              <Button variant='outlined' className={classes.btnBack} onClick={saveMovement}>Enviar</Button>
             </div>
           </Grid>
         </Grid>
