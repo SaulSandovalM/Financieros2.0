@@ -119,7 +119,6 @@ export default function Revolvente () {
     const ups = {
       up: event.target.value,
     }
-
     PresupuestoDataService.getOgasto(ups).then(response => {
       setOgasto(response.data)
       // console.log(response.data)  
@@ -133,10 +132,9 @@ export default function Revolvente () {
     const ogastos = {
       ogasto: event.target.value,
     }
-
     PresupuestoDataService.rubro(ogastos).then(response => {
       setRb(response.data)
-      // console.log(response.data)  
+      console.log(response.data)  
     }).catch(e => {
       console.log(e)
     })
@@ -155,6 +153,13 @@ export default function Revolvente () {
   }
 
   const saveMovement = (e) => {
+    // Update Presupuesto
+    console.log(rb[0].id)
+    var afectacion = {
+
+    }
+    // PresupuestoDataService.update()
+    // Insert Movements
     var data = {
       up: up,
       ogasto: partida,
@@ -163,8 +168,7 @@ export default function Revolvente () {
       amount: cantidad,
       oficio: oficio
     }
-
-    MovementsDataService.create(data).then(response => {
+    /* MovementsDataService.create(data).then(response => {
       setUp('')
       setPartida('')
       setRubro('')
@@ -179,7 +183,7 @@ export default function Revolvente () {
       setSever('error')
       setMessage(resMessage)
       setOpen(true)
-    })
+    })*/
   }
 
   const handleClose = (event, reason) => {

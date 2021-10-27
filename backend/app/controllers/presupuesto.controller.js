@@ -174,7 +174,7 @@ exports.ogastoAll = (req, res) => {
 exports.rubroAll = (req, res) => {
   const ogasto = req.body.ogasto
   console.log(ogasto)
-  Presupuesto.findAll({ where: { ogasto: ogasto }, attributes: ['rubro'], group: 'rubro' }).then(data => {
+  Presupuesto.findAll({ where: { ogasto: ogasto } }).then(data => {
     res.send(data)
   }).catch(err => {
     res.status(500).send({

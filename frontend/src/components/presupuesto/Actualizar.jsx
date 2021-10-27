@@ -156,6 +156,7 @@ export default function Actualizar (props) {
                 columns={columns} 
                 pageSize={20}
                 rowsPerPageOptions={[20]}
+                noRowsLabel='No hay datos'
                 disableColumnFilter
                 disableColumnMenu
                 disableColumnSelector
